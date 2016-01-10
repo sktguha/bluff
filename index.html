@@ -1,0 +1,41 @@
+<head></head>
+<body>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<div id='cards'></div>
+<script type="text/javascript">
+    var socket = io();
+    function sendCards(cards){
+        var data = JSON.stringify({
+            cards : cards,
+            name : getCookie('name'')
+        });
+        socket.emit('place cards', data );
+    }
+    function showCards(){
+        var data = JSON.stringify({
+             name : getCookie('name')
+        });
+        socket.emit('show cards', data );
+    }
+    socket.on('get cards', function(cards){
+        //got the cards from server
+        cards = JSON.parse(cards);
+        updateCards(cards);
+    })
+    function updateCards(cards){
+        var myCards = document.getElementById('cards');
+        var
+        cards.forEach(function(card){
+
+        });
+    }
+    function getCookie(name){
+
+    }
+    function setCookie(name, value){
+
+    }
+</script>
+</body>
+    

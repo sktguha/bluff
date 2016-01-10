@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/sktguha/bluff#readme",
   "dependencies": {
+    "express": "^4.13.3",
+    "node-inspector": "^0.12.5",
     "underscore": "^1.8.3"
   }
 }
