@@ -1,23 +1,28 @@
 var socket = io();
 var suitMap = {};
-function sendCards(cards){
+var cards = [];
+function login(){
+    var user = prompt('enter userName');
+    setCookie('user', user);
+    $('#user').val('username is '+user+'. click to change');
+}
+function sendPlaceCards(cards){
     var data = JSON.stringify({
         cards : cards,
-        name : getCookie('name')
+        name : getUser()
     });
     socket.emit('place cards', data );
 }
 function showCards(){
     var data = JSON.stringify({
-        name : getCookie('name')
+        name : getUser()
     });
     socket.emit('show cards', data );
-}
-socket.on('get cards', function(cards){
-    //got the cards from server
-    cards = JSON.parse(cards);
+    //this will come in response to showCards or a success
+    cardsToAdd = JSON.parse(cardsToAdd);
+    cards.concat(cardsToAdd);
     updateCards(cards);
-});
+}
 function updateCards(cards){
     var myCards = document.getElementById('cards');
     var ci = {};
@@ -28,7 +33,7 @@ function updateCards(cards){
     });
     updateCardDom(ci,myCards);
 }
-updateCards([1,2,3,3,3,4,3,2,7]);
+//updateCards([1,2,3,3,3,4,3,2,7]);
 function updateCardDom(cards, myCards){
     for(var i in cards){
         var td = document.createElement("td");
@@ -50,9 +55,28 @@ function getImage(i){
     img.style.width = img.style.height = '100px';
     return img;
 }
-function getCookie(name){
-    //put logic for name
+function getUser(){
+    var name =  getCookie('name');
+    while(!name){
+          name = window.prompt('userName is missing. please enter username to continue');
+         setCookie('name', name);
+    };
+    return name;
 }
-function setCookie(name, value){
-
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
+function setCookie(cname, cvalue, exdays){
+    exdays = exdays || 365;
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
 }

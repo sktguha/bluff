@@ -55,5 +55,11 @@ module.exports = {
         }
     });
 
-}
+},
+    read : function(name){
+       return  fs.readFileSync("storage/"+name);
+    },
+    write : function(name, value){
+        fs.writeFileSync("storage/"+name, value);
+    }
 };
