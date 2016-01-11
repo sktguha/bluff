@@ -131,7 +131,7 @@ function getCardImage(i){
     var img = document.createElement("img");
     suitMap[i] = suitMap[i] || Math.floor(Math.random()*4);
     img.src = "images/"+ i + '_of_' + ['hearts','spades', 'clubs', 'diamonds'][suitMap[i]]+".png";
-    img.style.width = img.style.height = '100px';
+    img.style.width = img.style.height = '130px';
     return img;
 }
 function getUser(){
