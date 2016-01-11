@@ -2,14 +2,36 @@
 <body>
 <script src="socket.io-1.2.0.js"></script>
 <script src="jquery-1.11.1.js"></script>
-<input type="button" value="setUserName" id='user' onclick="setUserName()">
-<div style="width:200px;height:200px">Table here</div>
-<div id='cards-container'>
+<input type="button" value="setUserName" id='user' onclick="login()">
+<table>
+    <tr id='players'></tr>
+</table>
+<div style="width:200px;height:200px" >
+    <table class='table-container'>
+        <tr id='current-table'></tr>
+    </table>
+    Table here</div>
+<div id='cards'>
     <table>
-        <tr id='cards'></tr>
+        <tr id='cards-container'></tr>
     </table>
 </div>
+<script>
+    //for dev env only
+    alert = console.log.bind(console);
+</script>
 <script type="text/javascript" src="index.js">
 </script>
+<style type="text/css">
+    .playerContainer{
+        padding-top: 11px;
+        padding-bottom: 11px;
+        background-color: #4CAF50;
+        color: white;
+    }
+    .card-container input[type="button"]{
+          display: none;
+    }
+</style>
 </body>
     

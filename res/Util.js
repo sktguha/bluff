@@ -3,8 +3,15 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = {
-    getParam : function(name){
-        return require('url').parse(req.url, true)[name]
+    getParam : function(name, req){
+        var str = req.url;
+        var res;
+        str.split("?")[1].split("&").forEach(function(st){
+            if(st.split("=")[0] === name){
+                res = st.split("=")[1]; 
+            }
+        });
+        return res;
     },
     serveFile: function (request,response){
     var filePath = '.' + request.url;
@@ -57,9 +64,19 @@ module.exports = {
 
 },
     read : function(name){
-       return  fs.readFileSync("storage/"+name);
+       var val;
+        try{
+           val = fs.readFileSync("storage/"+name+".txt");
+        } catch(e){
+            console.log('file '+name+' not found');
+        }
+        if(val){
+            return JSON.parse(val);
+        } else {
+            return false;
+        }
     },
     write : function(name, value){
-        fs.writeFileSync("storage/"+name, value);
+        fs.writeFileSync("storage/"+ name+".txt", JSON.stringify(value));
     }
 };
