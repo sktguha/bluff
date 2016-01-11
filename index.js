@@ -58,9 +58,12 @@ function updatePlayers(pd){
         var pe = document.createElement("td");
         pe.className = 'playerContainer';
         $(pe).append(template);
-
         pe.getElementsByClassName('name')[0].innerText = name+" ";
         pe.getElementsByClassName('noc')[0].innerText= pd[name];
+        if(name === getUser()){
+            //pe.getElementsByClassName('name')[0].innerText = "you  ";
+            $(pe).addClass('own-player');
+        }
         $('#players').append(pe);
     }
 }

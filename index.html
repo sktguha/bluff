@@ -6,15 +6,16 @@
 <table>
     <tr id='players'></tr>
 </table>
-<div style="width:200px;height:200px" >
-    <table class='table-container'>
-        <tr id='current-table'></tr>
-    </table>
-    Table here</div>
 <div id='cards'>
     <table>
         <tr id='cards-container'></tr>
     </table>
+</div>
+<div style="width:200px;height:200px" >
+    <table class='table-container'>
+        <tr id='current-table'></tr>
+    </table>
+    Table here
 </div>
 <script>
     //for dev env only
@@ -31,6 +32,12 @@
     }
     .card-container input[type="button"]{
           display: none;
+    }
+    .own-player{
+        background-color: white;
+        color : black;
+        border: 1px double green;
+        border-width: 2px 2px 0 2px;
     }
 </style>
 </body>
