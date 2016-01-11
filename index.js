@@ -35,19 +35,19 @@ function init(){
 }
 
 function _setupListeners(){
-    $('.add').on('click', function (e) {
-        var no = e.target.parentElement.parentElement.children[1].innerText*1;
-        ctab.push(no);
-        cards.subArray([no]);
-        updateCards(ctab, $('#current-table')[0]);
-        updateCards(cards, $('#cards-container')[0]);
-    });
-    $('.sub').on('click', function (e) {
-        var no = e.target.parentElement.parentElement.children[1].innerText*1;
-        cards.push(no);
-        ctab.subArray([no]);
-        updateCards(ctab, $('#current-table')[0]);
-        updateCards(cards, $('#cards-container')[0]);
+    $('.card').on('click', function (e) {
+        var no = e.target.src.split("/").pop().split("_")[0]*1;
+        if($(e.target).parents('#cards-container').length){
+            ctab.push(no);
+            cards.subArray([no]);
+            updateCards(ctab, $('#current-table')[0]);
+            updateCards(cards, $('#cards-container')[0]);
+        } else if($(e.target).parents('#current-table').length){
+            ctab.subArray([no]);
+            cards.push(no);
+            updateCards(ctab, $('#current-table')[0]);
+            updateCards(cards, $('#cards-container')[0]);
+        }
     });
 }
 
@@ -102,7 +102,7 @@ function updateCards(cards, myCards){
             td.className = 'card-container';
             $(td).css('text-align', 'center');
             var elem = document.createElement("div");
-            elem.innerHTML = "<div class='card'></div><table><tr><td><input type='button' class='add' value='add'/></td><td><span class='cardno'></span></td><td><input type='button' class='sub' value='sub'/></td></tr></table></div>";
+            elem.innerHTML = "<div class='card'></div><table><tr><td><span class='cardno'></span></td></tr></table></div>";
             var img = getCardImage(i);
             elem.getElementsByClassName('card')[0].appendChild(img);
             elem.getElementsByClassName('cardno')[0].innerText = carddata[i];
@@ -110,15 +110,17 @@ function updateCards(cards, myCards){
             td.appendChild(elem);
             myCards.appendChild(td);
         }
+        /*
         $(document).on('mouseenter', '.card-container', function () {
             $(this).find(":button").show();
             //$(this).find("img").css('height', '130px').css('width', '130px');
         }).on('mouseleave', '.card-container', function () {
                 $(this).find(":button").hide();
                 //$(this).find("img").css('height', '100px').css('width', '100px');
-            });
-            _setupListeners();
+            }); */
+            //_setupListeners();
         //$(this).find("img").css('height', '130px').css('width', '130px');
+        _setupListeners();
     }
 
 function getCardImage(i){
