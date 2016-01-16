@@ -138,7 +138,12 @@ rmdir( path , function ( err, dirs, files ){
     console.log( files );
     console.log( 'all files are removed' );
     players = [];
-    won = "";
+    table = [];
+    won = name;
+    currTabNo = "";
+    setTimeout(function(){
+        won = "";
+    }, 4000);
     try{
     fs.mkdirSync('./storage');
     } catch(e){
@@ -224,4 +229,4 @@ try{
 } catch(e){
     console.log(e);
 }
-
+

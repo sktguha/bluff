@@ -23,7 +23,7 @@ function getUser(){
     var name =  getCookie('user');
     //TODO : set some count for this
     while(!name){
-        name = window.prompt('userName is missing. please enter username to continue');
+        name = window.prompt('please enter username to continue. if you are exisiting user you will be logged in else a new account will be created');
         setCookie('user', name);
     };
     return name;
