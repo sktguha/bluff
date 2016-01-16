@@ -1,7 +1,5 @@
 <head></head>
 <body>
-<script src="socket.io-1.2.0.js"></script>
-<script src="jquery-1.11.1.js"></script>
 <input type="button" value="setUserName" id='user' onclick="login()">
 <table>
     <tr id='players'></tr>
@@ -11,18 +9,29 @@
         <tr id='cards-container'></tr>
     </table>
 </div>
+<table><tr>
+    <td><input type="button" value="pick/show"></td>
+    <td><input type="button" value="place"></td>
+    <td><input type="button" value="pass"></td>
+</tr></table>
 <div style="width:200px;height:200px" >
     <table class='table-container'>
         <tr id='current-table'></tr>
     </table>
     Table here
 </div>
+<textarea id='events' rows="" cols=""></textarea>
 <script>
     //for dev env only
-    alert = console.log.bind(console);
+    if(location.host.indexOf('localhost') === 0){
+        alert = console.log.bind(console);
+    }
 </script>
-<script type="text/javascript" src="index.js">
-</script>
+<script src="socket.io-1.2.0.js"></script>
+<script src="jquery-1.11.1.js"></script>
+<script type="text/javascript" src="clientUtil/misc.js"></script>
+<script type="text/javascript" src="clientUtil/networkAndDom.js"></script>
+<script type="text/javascript" src="index.js"></script>
 <style type="text/css">
     .playerContainer{
         padding-top: 11px;
@@ -41,6 +50,12 @@
         color : black;
         border: 1px double green;
         border-width: 2px 2px 0 2px;
+    }
+    @keyframes blink {
+   50% { border-color: #ff0000; }
+    }
+    curr-player { /*or other element you want*/
+        animation: blink .5s step-end infinite alternate;
     }
 </style>
 </body>

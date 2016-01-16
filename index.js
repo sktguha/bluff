@@ -1,19 +1,10 @@
-var socket; // = io();
+var socket = io();
 var suitMap = {};
 var cards = [];
 //window.error = function (e){
 //    alert('some error occured. please report to admin ' + e.toString());
 //};
-function login(){
-    var user = prompt('enter new user name');
-    if(!user) return;
-    setCookie('user', user);
-    $('#user').val('username is '+user+'. click to change');
-    init();
-}
-function onError(){
-    alert('request to server failed. checking your internet connection or reload page. if problem persists clear browser cache and try again');
-}
+
 function init(){
     $.ajax({
         url : '/?type=init&name='+getUser(),
@@ -21,17 +12,21 @@ function init(){
         success : function(data){
             data = JSON.parse(data);
             if(data.status === "welcome"){
-                alert('you have logged in as an existing user . if this is not you please login again with your username');
+                alert('you have logged in as an existing user . if this is not you please login or create new account again with your username');
             } else if(data.status === "new"){
                 alert('create new account success');
             }
-            cards = data.carddata;
-            updateCards(cards, $('#cards-container')[0]);
-            updatePlayers(data.playerdata);
+            updateCards(data.carddata, $('#cards-container')[0]);
+           onCommonBroadCastData(data);
             _setupListeners();
         },
         error : onError
     });
+}
+
+function onCommonBroadCastData(data){
+    updatePlayers(data.playerdata, data.currPlayer);
+
 }
 
 function _setupListeners(){
@@ -51,41 +46,37 @@ function _setupListeners(){
     });
 }
 
-function updatePlayers(pd){
+function updatePlayers(pData, curr){
     var template = "<span class='name'></span><span class='noc'></span>";
     document.getElementById('players').innerHTML = "";
-    for(var name in pd){
+    for(var name in pData){
         var pe = document.createElement("td");
         pe.className = 'playerContainer';
         $(pe).append(template);
         pe.getElementsByClassName('name')[0].innerText = name+" ";
-        pe.getElementsByClassName('noc')[0].innerText= pd[name];
+        pe.getElementsByClassName('noc')[0].innerText= pData[name];
         if(name === getUser()){
             //pe.getElementsByClassName('name')[0].innerText = "you  ";
             $(pe).addClass('own-player');
+        } else if(name === curr){
+            $(pe).addClass('curr-player');
         }
         $('#players').append(pe);
     }
 }
 var ctab = [];
 init();
-function sendPlaceCards(cards){
-    var data = JSON.stringify({
-        cards : cards,
-        name : getUser()
-    });
-    socket.emit('place cards', data );
-}
-function showCards(){
-    var data = JSON.stringify({
-        name : getUser()
-    });
-    socket.emit('show cards', data );
-    //this will come in response to showCards or a success
-    var cardsToAdd = JSON.parse(cardsToAdd);
-    cards.concat(cardsToAdd);
-    updateCards(cards);
-}
+socket.on('kick player', function(msg){
+
+    onCommonBroadCastData(msg[msg.length-1]);
+});
+
+
+
+socket.on('event', function(msg){
+    status.innerText += msg[0]+"\n";
+});
+
 function updateCards(cards, myCards){
     myCards = myCards || document.getElementById('cards-container');
     var ci = {};
@@ -126,49 +117,3 @@ function updateCards(cards, myCards){
         _setupListeners();
     }
 
-function getCardImage(i){
-    //var map = {1:'ace', 11 : 'jack', 12: 'queen', 13:'king'};
-    var img = document.createElement("img");
-    suitMap[i] = suitMap[i] || Math.floor(Math.random()*4);
-    img.src = "images/"+ i + '_of_' + ['hearts','spades', 'clubs', 'diamonds'][suitMap[i]]+".png";
-    img.style.width = img.style.height = '130px';
-    return img;
-}
-function getUser(){
-    var name =  getCookie('user');
-    while(!name){
-          name = window.prompt('userName is missing. please enter username to continue');
-         setCookie('user', name);
-    };
-    return name;
-}
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return "";
-}
-function setCookie(cname, cvalue){
-    if(getCookie(cname)){
-        document.cookie = cname  + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-    }
-    var exdays = exdays || 365;
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; ";// + expires;
-}
-
-Array.prototype.subArray = function(cards){
-    var that = this;
-    cards.forEach(function(card){
-        var id = that.indexOf(card);
-        if(id !== -1){
-            that.splice(id, 1);
-        }
-    });
-};
