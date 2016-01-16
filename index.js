@@ -1,32 +1,60 @@
-var socket = io();
+var socket = {on:$.noop};//io();
 var suitMap = {};
-var cards = [];
+var cards = [], ctab = [];
 //window.error = function (e){
 //    alert('some error occured. please report to admin ' + e.toString());
 //};
+var shown = false, timeout = 2*1000;
 
-function init(){
+function sendPlaceCards(cards){
+    var data = JSON.stringify({
+        cards : cards,
+        name : getUser()
+    });
     $.ajax({
-        url : '/?type=init&name='+getUser(),
+        url : '/?type=place&cards='+JSON.stringify(cards),
+        success : function(e){
+            if(e === "error") return;
+            //set cards on the table to zero
+            ctab = [];
+            updateCards();
+        },
+        error : onError
+    });
+}
+poll();
+function poll(){
+    $.ajax({
+        url : '/?type=init&name='+getUser()+'&eventts='+Date.now(),
         datatype : 'json',
         success : function(data){
             data = JSON.parse(data);
-            if(data.status === "welcome"){
+            if(data.status === "welcome" && !shown){
                 alert('you have logged in as an existing user . if this is not you please login or create new account again with your username');
-            } else if(data.status === "new"){
+                shown = true;
+            } else if(data.status === "new" && !shown){
                 alert('create new account success');
+                shown = true;
             }
-            updateCards(data.carddata, $('#cards-container')[0]);
-           onCommonBroadCastData(data);
-            _setupListeners();
+            onPollResponse(data);
+            setTimeout(poll, timeout);
         },
         error : onError
     });
 }
 
-function onCommonBroadCastData(data){
+function onPollResponse(data){
+    if(data.won){
+        alert(data.won + 'has won. press ok to reload page');
+        location.reload();
+    }
     updatePlayers(data.playerdata, data.currPlayer);
-
+    if(_.difference(data.carddata, cards.concat(ctab)).length){
+        ctab = [];
+        cards = data.carddata;
+        updateCards();
+    }
+    data.events && data.events.forEach(function(e){ updateStatus(e);});
 }
 
 function _setupListeners(){
@@ -35,85 +63,41 @@ function _setupListeners(){
         if($(e.target).parents('#cards-container').length){
             ctab.push(no);
             cards.subArray([no]);
-            updateCards(ctab, $('#current-table')[0]);
-            updateCards(cards, $('#cards-container')[0]);
+            updateCards();
         } else if($(e.target).parents('#current-table').length){
             ctab.subArray([no]);
             cards.push(no);
-            updateCards(ctab, $('#current-table')[0]);
-            updateCards(cards, $('#cards-container')[0]);
+            updateCards();
         }
     });
 }
 
-function updatePlayers(pData, curr){
-    var template = "<span class='name'></span><span class='noc'></span>";
-    document.getElementById('players').innerHTML = "";
-    for(var name in pData){
-        var pe = document.createElement("td");
-        pe.className = 'playerContainer';
-        $(pe).append(template);
-        pe.getElementsByClassName('name')[0].innerText = name+" ";
-        pe.getElementsByClassName('noc')[0].innerText= pData[name];
-        if(name === getUser()){
-            //pe.getElementsByClassName('name')[0].innerText = "you  ";
-            $(pe).addClass('own-player');
-        } else if(name === curr){
-            $(pe).addClass('curr-player');
-        }
-        $('#players').append(pe);
-    }
-}
-var ctab = [];
-init();
-socket.on('kick player', function(msg){
-
-    onCommonBroadCastData(msg[msg.length-1]);
-});
-
-
-
-socket.on('event', function(msg){
-    status.innerText += msg[0]+"\n";
-});
-
-function updateCards(cards, myCards){
-    myCards = myCards || document.getElementById('cards-container');
-    var ci = {};
-    setCookie('cards', JSON.stringify(cards));
-    cards.sort();
-    cards.forEach(function(card){
-        ci[card] = ci[card] || 0;
-        ci[card] ++;
-    });
-    _updateCardDom(ci,myCards);
+function updateCards(cardsInHand, cardsOnTable){
+    cardsInHand = cardsInHand || cards;
+    cardsOnTable = cardsOnTable || ctab;
+    _updateCardDom(_sortCards(cardsInHand),  $('#cards-container')[0]);
+   // setCookie('cards', JSON.stringify(cardsInHand));
+    _updateCardDom(_sortCards(cardsOnTable),  $('#current-table')[0]);
+    _setupListeners();
 }
 
-    function _updateCardDom(carddata, myCards){
-        myCards.innerHTML = "";
-        for(var i in carddata){
-            var td = document.createElement("td");
-            td.className = 'card-container';
-            $(td).css('text-align', 'center');
-            var elem = document.createElement("div");
-            elem.innerHTML = "<div class='card'></div><table><tr><td><span class='cardno'></span></td></tr></table></div>";
-            var img = getCardImage(i);
-            elem.getElementsByClassName('card')[0].appendChild(img);
-            elem.getElementsByClassName('cardno')[0].innerText = carddata[i];
-            $(elem).data('no',i);
-            td.appendChild(elem);
-            myCards.appendChild(td);
-        }
-        /*
-        $(document).on('mouseenter', '.card-container', function () {
-            $(this).find(":button").show();
-            //$(this).find("img").css('height', '130px').css('width', '130px');
-        }).on('mouseleave', '.card-container', function () {
-                $(this).find(":button").hide();
-                //$(this).find("img").css('height', '100px').css('width', '100px');
-            }); */
-            //_setupListeners();
-        //$(this).find("img").css('height', '130px').css('width', '130px');
-        _setupListeners();
-    }
+/*
+ var ctab = [];
+ socket.on('kick player', function(msg){
 
+ onCommonBroadCastData(msg[msg.length-1]);
+ });
+
+
+
+ socket.on('event', function(msg){
+ status.innerText += msg[0]+"\n";
+ });
+
+ $(document).on('mouseenter', '.card-container', function () {
+ $(this).find(":button").show();
+ //$(this).find("img").css('height', '130px').css('width', '130px');
+ }).on('mouseleave', '.card-container', function () {
+ $(this).find(":button").hide();
+ //$(this).find("img").css('height', '100px').css('width', '100px');
+ }); */

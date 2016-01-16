@@ -3,7 +3,6 @@ function login(){
     if(!user) return;
     setCookie('user', user);
     $('#user').val('username is '+user+'. click to change');
-    init();
 }
 
 function getCardImage(i){
@@ -16,7 +15,9 @@ function getCardImage(i){
 }
 var status = $('#events')[0];
 function updateStatus(msg){
-    status.value = msg + '\n' + status.value;
+    var st = new Date().toString();//new Date(msg.ts).getUTCSeconds() + ":"+new Date(msg.ts).getUTCMinutes() + ":" + new Date(msg.ts).getUTCHours();
+    st += "\n" + msg.text;
+    status.value = st + '\n' + status.value;
 }
 function getUser(){
     var name =  getCookie('user');

@@ -1,27 +1,35 @@
 var Util = require("./res/util");
 var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+var httpServer = require('http').Server(app);
+var io = require('socket.io')(httpServer);
+var http = require("http");
 var read = Util.read;
 var write = Util.write;
-
+var fs = require('fs');
+var won;
 var _ = require('underscore');
 var serveFile = Util.serveFile;
-var players = [], isConnected, currPlayer, prevPlayer, currCard, table = [],currentTableNumber , sendInitRequest = true, timerLength=30, timer, defaultCardNo = 10;
+var players = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currentTableNumber , sendInitRequest = true, timerLength=30, timer, defaultCardNo = 10;
 io.on('connection', function(socket){
     isConnected = true;
 });
-setInterval(function(){
-    io.emit('event', [1]);
-}, 1000) ;
 function startNewTimer(){
     clearTimeout(timer);
     timer = setTimeout(function(){
         kickPlayer();
     }, timerLength);
 }
- http.listen(process.argv[2] || 7000);
-app.get('/', function(req, res) {
+function addEvent(e, ts){
+    events = read('1452955861853event')  || [] ;
+    events.push({
+        ts : ts || Date.now(),
+        text : e
+    });
+    write('1452955861853event', events);
+}
+ //http.listen(process.argv[2] || 7000);
+fs.mkdirSync('./storage');
+http.createServer( function(req, res) {
     if(req.url.indexOf("?") === -1){
         serveFile(req, res);
     } else {
@@ -35,6 +43,7 @@ app.get('/', function(req, res) {
         //can be new or returning user. doesn't matter. get/generate the required cards
         if(type === 'init'){
             var resp = {};
+            var ts = Util.getParam('eventts', req) || Date.now();
             if(players.indexOf(name) !== -1){
                 resp.status = "welcome";
             } else {
@@ -47,9 +56,13 @@ app.get('/', function(req, res) {
             write(name, carddata);
             }
             resp.carddata = carddata;
+            !events && addEvent('initiating game', 0);
+            resp.events = events.filter(function(evt){
+                return evt.ts <  ts;
+            });
+            resp.won = won;
             getCommonBroadcastData(resp);
             res.end(JSON.stringify(resp));
-            broadcast('event', [name + 'logged in from '+ req.connection.remoteAddress]);
         }
         //place cards
         else if(type === "place cards"){
@@ -98,7 +111,7 @@ app.get('/', function(req, res) {
             res.end(getPlayerData());
         }
     }
-})
+}).listen(process.argv[2] || 7000);
 
 function setCurrentPlayer(name){
     currPlayer = name;
@@ -112,8 +125,27 @@ function updateCards(name, cards,action){
     } else if (action === "sub"){
         var ccard = read(name) || [];
         ccard.subArray(cards);
+        if(!ccard.length){
+            setWinnerAndRestart(name);
+            return;
+        }
         write(name, ccard);
     }
+}
+
+function setWinnerAndRestart(name){
+won = name;
+var rmdir = require( 'rmdir' );
+var path  = '/storage';
+
+rmdir( path + '/assets', function ( err, dirs, files ){
+    console.log( dirs );
+    console.log( files );
+    console.log( 'all files are removed' );
+    players = [];
+    won = "";
+    fs.mkdirSync('./storage');
+});
 }
 
 Array.prototype.subArray = function(cards){
