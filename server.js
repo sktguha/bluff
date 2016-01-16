@@ -60,6 +60,13 @@ function addPlayer(name){
     players.push(name);
 }
 
+function getCommonBroadcastData(resp){
+    resp = resp || {};
+    resp.playerdata = getPlayerData();
+    resp.current = currPlayer;
+    return resp;
+}
+
  http.createServer(function(req, res) {
     if(req.url.indexOf("?") === -1){
         serveFile(req, res);
@@ -86,8 +93,7 @@ function addPlayer(name){
             write(name, carddata);
             }
             resp.carddata = carddata;
-            resp.playerdata = getPlayerData();
-            resp.current = currPlayer;
+            getCommonBroadcastData(resp);
             res.end(JSON.stringify(resp));
             broadcast('event', [name + 'logged in from '+ req.connection.remoteAddress]);
         }

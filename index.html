@@ -19,7 +19,9 @@
 </div>
 <script>
     //for dev env only
-    alert = console.log.bind(console);
+    if(location.host.indexOf('localhost') === 0){
+        alert = console.log.bind(console);
+    }
 </script>
 <script type="text/javascript" src="index.js">
 </script>
