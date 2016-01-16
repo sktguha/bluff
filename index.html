@@ -9,10 +9,12 @@
         <tr id='cards-container'></tr>
     </table>
 </div>
-<table><tr>
+<table id='turn-container'><tr>
     <td><input type="button" value="pick/show"></td>
     <td><input type="button" value="place" onclick="sendPlaceCards()"></td>
     <td><input type="button" value="pass"></td>
+    <td>current table number <input type='text' id='currTabNo'/></td>
+     <td>Number of cards on table <span id="numOfCards"></span></td>
 </tr></table>
 <div style="width:200px;height:200px" >
     <table class='table-container'>
@@ -27,8 +29,8 @@
         alert = console.log.bind(console);
     }
 </script>
-<script src="socket.io-1.2.0.js"></script>
 <script src="jquery-1.11.1.js"></script>
+<script src="jquery.twinkle-0.8.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script type="text/javascript" src="clientUtil/misc.js"></script>
 <script type="text/javascript" src="clientUtil/networkAndDom.js"></script>
@@ -55,7 +57,7 @@
     @keyframes blink {
    50% { border-color: #ff0000; }
     }
-    curr-player { /*or other element you want*/
+    .curr-player { /*or other element you want*/
         animation: blink .5s step-end infinite alternate;
     }
 </style>

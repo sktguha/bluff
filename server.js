@@ -9,27 +9,20 @@ var fs = require('fs');
 var won;
 var _ = require('underscore');
 var serveFile = Util.serveFile;
-var players = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currentTableNumber , sendInitRequest = true, timerLength=30, timer, defaultCardNo = 10;
+var players = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, timerLength=5 * 1000, timer, defaultCardNo = 10;
 io.on('connection', function(socket){
     isConnected = true;
 });
 function startNewTimer(){
     clearTimeout(timer);
     timer = setTimeout(function(){
-        kickPlayer();
+        setCurrentPlayer(getNext(currPlayer));
+        startNewTimer();
     }, timerLength);
 }
-function addEvent(e, ts){
-    events = read('1452955861853event')  || [] ;
-    events.push({
-        ts : ts || Date.now(),
-        text : e
-    });
-    write('1452955861853event', events);
-}
- //http.listen(process.argv[2] || 7000);
-fs.mkdirSync('./storage');
+startNewTimer();
 http.createServer( function(req, res) {
+    console.log(req.url);
     if(req.url.indexOf("?") === -1){
         serveFile(req, res);
     } else {
@@ -61,39 +54,45 @@ http.createServer( function(req, res) {
                 return evt.ts <  ts;
             });
             resp.won = won;
+            resp.currTabNo = currTabNo;
+            var totTable = [];
+            table.forEach(function(card){
+                totTable = totTable.concat(card);
+            });
+            resp.allTable = totTable.length;
             getCommonBroadcastData(resp);
             res.end(JSON.stringify(resp));
         }
         //place cards
-        else if(type === "place cards"){
+        else if(type === "place"){
             //place cards on table
-            var cards = JSON.parse(Util.getParam('cards'), req); // an object containing the cards placed by the player
+            var cards = JSON.parse(Util.getParam('cards', req)); // an object containing the cards placed by the player
+            currTabNo = currTabNo || Util.getParam('currTabNo', req);
             table.push(cards);
             prevPlayer = currPlayer;
-            ind = players.indexOf(name);
-            setCurrentPlayer(players[ind === players.length?0:ind+1]);
+            setCurrentPlayer(getNext(name));
             updateCards(name, cards, 'sub');
             startNewTimer();
             res.end('success');
         }  // show button will be disabled by client if not current turn or no cards on the table
-        //the current turn will be broadcasted to all clients. the one whose turn is will place the turn . others will turn their indicators active
         else if(type === "show"){
             if(name !== currPlayer){
                 res.end('error');
             }
             var allTable = [];
             table.forEach(function(card){
-                allTable.concat(card);
+                allTable = allTable.concat(card);
             });
             var lastCards = table[table.length-1];
-            //all broadcast events client gets new data
-            if(lastCards.every(function(card){  return card === currentTableNumber; })){
+            if(lastCards.every(function(card){  return card === currTabNo; })){
                //no bluff
-                broadcast('pawned', [currPlayer, prevPlayer]);
+                addEvent('pawned', [currPlayer, prevPlayer]);
                 setCurrentPlayer(prevPlayer);
-
+                res.end(lastCards);
+                currTabNo = 0;
             } else {
                 //bluff caught
+                addEvent('pawned', [prevPlayer, currPlayer]);
                 broadcast('pawned', [prevPlayer, currPlayer]);
                 setCurrentPlayer(currPlayer);
             }
@@ -107,16 +106,13 @@ http.createServer( function(req, res) {
         } else if(type === "kick"){
              var kickedPlayer = Util.getParam('kickedPlayer', req);
             kickPlayer(kickedPlayer);
-        } else if(type === "carddata"){
-            res.end(getPlayerData());
         }
     }
 }).listen(process.argv[2] || 7000);
 
 function setCurrentPlayer(name){
     currPlayer = name;
-    //action is add or subtract
-    broadcast('current player', [currPlayer]);
+    console.log('current player set as '+name);
 }
 
 function updateCards(name, cards,action){
@@ -136,15 +132,18 @@ function updateCards(name, cards,action){
 function setWinnerAndRestart(name){
 won = name;
 var rmdir = require( 'rmdir' );
-var path  = '/storage';
-
-rmdir( path + '/assets', function ( err, dirs, files ){
+var path  = './storage';
+rmdir( path , function ( err, dirs, files ){
     console.log( dirs );
     console.log( files );
     console.log( 'all files are removed' );
     players = [];
     won = "";
+    try{
     fs.mkdirSync('./storage');
+    } catch(e){
+        console.error(e);
+    }
 });
 }
 
@@ -164,9 +163,11 @@ function broadcast(label, arg){
      io.emit(label, JSON.stringify(arg));
 }
 
-function getNext(ind){
+function getNext(name){
     //here put logic for game win
-    return ind === players.length-1 ? 0 : ind+1;
+    var ind = players.indexOf(name);
+    if(ind === -1) return;
+    return players[ind === players.length-1 ? 0 : ind+1];
 }
 
 function kickPlayer(player){
@@ -174,12 +175,10 @@ function kickPlayer(player){
     if(player !== currPlayer) return;
     var ind = players.indexOf(player);
     players.splice(ind, 1);
-    if(!checkNoPlayers()){
-        ind = getNext(ind);
-        setCurrentPlayer(players[ind]);
+    if(currPlayer === player){
         startNewTimer();
     }
-    broadcast('kick player', [player]);
+    addEvent('kick player ' + player);
 }
 
 function getPlayerData(){
@@ -210,3 +209,19 @@ function getCommonBroadcastData(resp){
     resp.currPlayer = currPlayer;
     return resp;
 }
+
+function addEvent(e, ts){
+    events = read('1452955861853event')  || [] ;
+    events.push({
+        ts : ts || Date.now(),
+        text : e
+    });
+    write('1452955861853event', events);
+}
+//http.listen(process.argv[2] || 7000);
+try{
+    fs.mkdirSync('./storage');
+} catch(e){
+    console.log(e);
+}
+

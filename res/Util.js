@@ -3,6 +3,14 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = {
+addEvent : function(e, ts){
+    events = read('1452955861853event')  || [] ;
+    events.push({
+        ts : ts || Date.now(),
+        text : e
+    });
+        write('1452955861853event', events);
+    },
     getParam : function(name, req){
         var str = req.url;
         var res;

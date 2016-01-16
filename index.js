@@ -4,15 +4,25 @@ var cards = [], ctab = [];
 //window.error = function (e){
 //    alert('some error occured. please report to admin ' + e.toString());
 //};
-var shown = false, timeout = 2*1000;
+var shown = false, timeout = 2*1000, currTabNo;
 
 function sendPlaceCards(cards){
-    var data = JSON.stringify({
-        cards : cards,
-        name : getUser()
-    });
+    cards = cards || ctab;
+    if(!cards.length){
+        alert('please place some cards on the table else press pass if you want to pass');
+        $('.card').children('img').twinkle();
+        return;
+    }
+    currTabNo = currTabNo || $('#currTabNo')[0].value;
+
+    if(!Number(currTabNo) || currTabNo > 13 || currTabNo < 1){
+         alert("put number in the input box you want to place cards as (1,11,12,13 for A,J,Q,K respectively)");
+         currTabNo = $('#currTabNo')[0].value;
+         $('#currTabNo').twinkle();
+        return;
+    }
     $.ajax({
-        url : '/?type=place&cards='+JSON.stringify(cards),
+        url : '/?type=place&cards='+JSON.stringify(cards)+'&currTabNo='+currTabNo+'&name='+getUser(),
         success : function(e){
             if(e === "error") return;
             //set cards on the table to zero
@@ -49,11 +59,21 @@ function onPollResponse(data){
         location.reload();
     }
     updatePlayers(data.playerdata, data.currPlayer);
+    if(getUser() === data.currPlayer){
+        $('#turn-container :input').prop('disabled', false);
+    } else {
+        $('#turn-container :input').prop('disabled', true);
+    }
     if(_.difference(data.carddata, cards.concat(ctab)).length){
         ctab = [];
         cards = data.carddata;
         updateCards();
     }
+    currTabNo = data.currTabNo;
+    if(currTabNo){
+        $('#currTabNo')[0].value = currTabNo;
+    }
+    $('#numOfCards')[0].innerText = (data.allTable || 0);
     data.events && data.events.forEach(function(e){ updateStatus(e);});
 }
 

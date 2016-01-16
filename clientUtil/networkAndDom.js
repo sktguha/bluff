@@ -58,7 +58,8 @@ function updatePlayers(pData, curr){
         if(name === getUser()){
             //pe.getElementsByClassName('name')[0].innerText = "you  ";
             $(pe).addClass('own-player');
-        } else if(name === curr){
+        } 
+        if(name === curr){
             $(pe).addClass('curr-player');
         }
         $('#players').append(pe);
