@@ -41,6 +41,7 @@ function getCookie(cname) {
 function onError(){
     alert('request to server failed. checking your internet connection or reload page. if problem persists clear browser cache and try again');
 }
+onError = _.throttle(onError, 1000);
 function setCookie(cname, cvalue){
     var exdays = exdays || 1;
     var d = new Date();

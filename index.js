@@ -4,13 +4,16 @@ var cards = [], ctab = [];
 //window.error = function (e){
 //    alert('some error occured. please report to admin ' + e.toString());
 //};
-var shown = false, timeout = 2*1000, currTabNo;
+var shown = false, timeout = 500, currTabNo;
 
 function sendPlaceCards(cards){
     cards = cards || ctab;
     if(!cards.length){
         alert('please place some cards on the table else press pass if you want to pass');
         $('.card').children('img').twinkle();
+        setTimeout(function(){
+            $('#current-table').twinkle();
+        }, 1000);
         return;
     }
     currTabNo = currTabNo || $('#currTabNo')[0].value;
@@ -54,8 +57,12 @@ function poll(){
 }
 
 function onPollResponse(data){
+    if(data === "kick"){
+        alert('oops it seems you have been kicked from server. please ok to close. please wait atleast 10 sec to join again');
+        location.href = '/kicked.html';
+    }
     if(data.won){
-        alert(data.won + 'has won. press ok to reload page');
+        alert(data.won + ' has won. press ok to reload page');
         location.reload();
     }
     updatePlayers(data.playerdata, data.currPlayer);

@@ -75,14 +75,11 @@ addEvent : function(e, ts){
        var val;
         try{
            val = fs.readFileSync("storage/"+name+".txt");
+            val = JSON.parse(val);
         } catch(e){
             console.log('file '+name+' not found');
         }
-        if(val){
-            return JSON.parse(val);
-        } else {
-            return false;
-        }
+        return val;
     },
     write : function(name, value){
         fs.writeFileSync("storage/"+ name+".txt", JSON.stringify(value));

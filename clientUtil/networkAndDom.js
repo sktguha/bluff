@@ -47,7 +47,7 @@ function _updateCardDom(carddata, myCards){
 }
 
 function updatePlayers(pData, curr){
-    var template = "<span class='name'></span><span class='noc'></span>";
+    var template = "<span class='name'></span><span class='noc'></span><input type='button' class = 'kick' value='kick'/>";
     document.getElementById('players').innerHTML = "";
     for(var name in pData){
         var pe = document.createElement("td");
@@ -64,4 +64,14 @@ function updatePlayers(pData, curr){
         }
         $('#players').append(pe);
     }
+    $('.kick').on('click', function(e){
+        var player = $(e.target).siblings('.name')[0].textContent;
+        player = player && player.trim();
+        if(!player) return;
+        if(!window.confirm('are you sure you want to kick the player ' + player)) return;
+        $.ajax({
+            url : '/?name='+getUser()+'&type=kick&playerToKick='+player
+        });
+    });
+
 }

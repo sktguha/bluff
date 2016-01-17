@@ -9,7 +9,7 @@ var fs = require('fs');
 var won;
 var _ = require('underscore');
 var serveFile = Util.serveFile;
-var players = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, timerLength=5 * 1000, timer, defaultCardNo = 10;
+var players = [],kickList = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, timerLength=5 * 1000, timer, defaultCardNo = 10;
 io.on('connection', function(socket){
     isConnected = true;
 });
@@ -28,6 +28,13 @@ http.createServer( function(req, res) {
     } else {
         var name = Util.getParam('name', req); //the players id
         var type = Util.getParam('type', req);
+        if(kickList.indexOf(name) !== -1){
+            res.end(JSON.stringify('kick'));
+            setTimeout(function(){
+                kickList.splice(kickList.indexOf(name),1);
+            }, 10000);
+            return;
+        }
         if(!name){
            // console.error('redirecting to login page as no name param present');
             //serveFile({url : 'login.html?fromgame=true'}, res);
@@ -104,11 +111,11 @@ http.createServer( function(req, res) {
             }
             var ind = players.indexOf(name);
         } else if(type === "kick"){
-             var kickedPlayer = Util.getParam('kickedPlayer', req);
-            kickPlayer(kickedPlayer);
+             var playerToKick = Util.getParam('playerToKick', req);
+            kickPlayer(playerToKick);
         }
     }
-}).listen(process.argv[2] || 7000);
+}).listen(process.argv[2] || 8080);
 
 function setCurrentPlayer(name){
     currPlayer = name;
@@ -177,13 +184,15 @@ function getNext(name){
 
 function kickPlayer(player){
     player = player || currPlayer;
-    if(player !== currPlayer) return;
     var ind = players.indexOf(player);
+    if(ind === -1) return;
     players.splice(ind, 1);
+    write(player, "");
     if(currPlayer === player){
         startNewTimer();
     }
     addEvent('kick player ' + player);
+    kickList.push(player);
 }
 
 function getPlayerData(){
@@ -221,6 +230,7 @@ function addEvent(e, ts){
         ts : ts || Date.now(),
         text : e
     });
+    console.log(e);
     write('1452955861853event', events);
 }
 //http.listen(process.argv[2] || 7000);
@@ -229,4 +239,6 @@ try{
 } catch(e){
     console.log(e);
 }
+
+
 

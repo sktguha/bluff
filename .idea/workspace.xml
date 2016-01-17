@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/index.js" line="17" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/index.js" line="20" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea54015a-f915-4cec-affd-fc564ffb657a" name="Default" comment="" />
@@ -64,56 +64,17 @@
       <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="145" column="11" selection-start="4994" selection-end="4994" vertical-scroll-proportion="0.9010309">
-              <folding>
-                <element signature="e#530#557#0" expanded="false" />
-                <element signature="n#!!block;n#startNewTimer#0" expanded="false" />
-                <element signature="e#644#723#0" expanded="false" />
-                <element signature="e#796#4120#0" expanded="false" />
-                <element signature="e#859#895#0" expanded="false" />
-                <element signature="e#901#4118#0" expanded="false" />
-                <element signature="e#1031#1211#0" expanded="false" />
-                <element signature="e#1044#1115#0" expanded="false" />
-                <element signature="e#1327#2312#0" expanded="false" />
-                <element signature="e#1466#1522#0" expanded="false" />
-                <element signature="e#1528#1613#0" expanded="false" />
-                <element signature="e#1679#1764#0" expanded="false" />
-                <element signature="e#1911#1963#0" expanded="false" />
-                <element signature="e#2105#2170#0" expanded="false" />
-                <element signature="e#2368#2823#0" expanded="false" />
-                <element signature="e#2944#3804#0" expanded="false" />
-                <element signature="e#2981#3030#0" expanded="false" />
-                <element signature="e#3102#3167#0" expanded="false" />
-                <element signature="e#3299#3515#0" expanded="false" />
-                <element signature="e#3521#3738#0" expanded="false" />
-                <element signature="e#3829#3970#0" expanded="false" />
-                <element signature="e#3866#3915#0" expanded="false" />
-                <element signature="e#3995#4112#0" expanded="false" />
-                <element signature="n#!!block;n#setCurrentPlayer#0" expanded="false" />
-                <element signature="n#!!block;n#updateCards#0" expanded="false" />
-                <element signature="e#4329#4392#0" expanded="false" />
-                <element signature="e#4419#4619#0" expanded="false" />
-                <element signature="e#4515#4585#0" expanded="false" />
-                <element signature="e#5004#5042#0" expanded="false" />
-                <element signature="e#5051#5084#0" expanded="false" />
-                <element signature="e#5134#5302#0" expanded="false" />
-                <element signature="e#5189#5298#0" expanded="false" />
-                <element signature="e#5249#5292#0" expanded="false" />
-                <element signature="n#!!block;n#broadcast#0" expanded="false" />
-                <element signature="n#!!block;n#getNext#0" expanded="false" />
-                <element signature="n#!!block;n#kickPlayer#0" expanded="false" />
-                <element signature="e#5830#5862#0" expanded="false" />
-                <element signature="n#!!block;n#getPlayerData#0" expanded="false" />
-                <element signature="e#5980#6020#0" expanded="false" />
-                <element signature="n#!!block;n#getCards#0" expanded="false" />
-                <element signature="e#6138#6195#0" expanded="false" />
-                <element signature="n#!!block;n#addPlayer#0" expanded="false" />
-                <element signature="n#!!block;n#getCommonBroadcastData#0" expanded="false" />
-                <element signature="n#!!block;n#addEvent#0" expanded="false" />
-                <element signature="e#6551#6606#0" expanded="false" />
-                <element signature="e#6695#6729#0" expanded="false" />
-                <element signature="e#6738#6761#0" expanded="false" />
-              </folding>
+            <state line="40" column="212" selection-start="1450" selection-end="1450" vertical-scroll-proportion="0.7257732">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="kicked.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kicked.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="110" selection-start="110" selection-end="110" vertical-scroll-proportion="-0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -121,7 +82,7 @@
       <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="81" selection-start="1758" selection-end="1758" vertical-scroll-proportion="-10.071428">
+            <state line="53" column="105" selection-start="1897" selection-end="1897" vertical-scroll-proportion="-4.9">
               <folding />
             </state>
           </provider>
@@ -130,7 +91,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="38" selection-start="1871" selection-end="1871" vertical-scroll-proportion="-11.75">
+            <state line="38" column="9" selection-start="1285" selection-end="1285" vertical-scroll-proportion="-4.071429">
               <folding />
             </state>
           </provider>
@@ -139,7 +100,7 @@
       <file leaf-file-name="Util.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/Util.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="19" selection-start="119" selection-end="119" vertical-scroll-proportion="0.0">
+            <state line="81" column="19" selection-start="2322" selection-end="2322" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -148,7 +109,7 @@
       <file leaf-file-name="networkAndDom.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clientUtil/networkAndDom.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="50" selection-start="310" selection-end="310" vertical-scroll-proportion="-6.107143">
+            <state line="71" column="64" selection-start="2496" selection-end="2496" vertical-scroll-proportion="-5.178571">
               <folding />
             </state>
           </provider>
@@ -157,7 +118,7 @@
       <file leaf-file-name="misc.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clientUtil/misc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="8" selection-start="940" selection-end="940" vertical-scroll-proportion="-3.607143">
+            <state line="43" column="34" selection-start="1652" selection-end="1652" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -190,10 +151,11 @@
         <option value="$PROJECT_DIR$/clientUtil.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/notes.txt" />
-        <option value="$PROJECT_DIR$/clientUtil/networkAndDom.js" />
         <option value="$PROJECT_DIR$/res/Util.js" />
-        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/clientUtil/networkAndDom.js" />
         <option value="$PROJECT_DIR$/clientUtil/misc.js" />
+        <option value="$PROJECT_DIR$/kicked.html" />
+        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/server.js" />
       </list>
@@ -231,8 +193,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -281,6 +241,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -313,6 +275,24 @@
       </method>
     </configuration>
     <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" adl_options="" air_descriptor_path="" air_program_params="" air_publisher_id="" air_root_dir_path="" air_run_mode="AppDescriptor" browser_family="FIREFOX" class_name="" debugger_sdk="Module SDK" html_or_swf_file_path="" launcher_type="OSDefault" main_class_name="" method_name="" module_name="" output_log_level="" package_name="" player_path="FlashPlayer.exe" port="0" run_mode="HtmlOrSwfFile" run_trusted="true" scope="Class" socket_policy_port="0" url_to_launch="http://">
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -353,24 +333,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -388,6 +350,17 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -417,17 +390,6 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -440,7 +402,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1366" height="728" extended-state="1" />
+    <frame x="0" y="0" width="1366" height="728" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -459,10 +421,10 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24961479" sideWeight="0.6708408" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24961479" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24961479" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -520,126 +482,75 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/node_modules/node-inspector/node_modules/biased-opener/node_modules/browser-launcher2/node_modules/rimraf/rimraf.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="4" selection-start="159" selection-end="159" vertical-scroll-proportion="0.28787878">
-          <folding />
-        </state>
+        <state line="8" column="4" selection-start="159" selection-end="159" vertical-scroll-proportion="0.28787878" />
       </provider>
     </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/ECMAScript.js2">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="25" selection-start="3207" selection-end="3207" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="77" column="25" selection-start="3207" selection-end="3207" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="9" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="3" column="9" selection-start="36" selection-end="36" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/node-inspector/node_modules/biased-opener/node_modules/x-default-browser/node_modules/default-browser-id/node_modules/meow/node_modules/redent/node_modules/strip-indent/cli.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="9" selection-start="507" selection-end="507" vertical-scroll-proportion="0.33333334">
-          <folding />
-        </state>
+        <state line="25" column="9" selection-start="507" selection-end="507" vertical-scroll-proportion="0.33333334" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/notes.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="54" selection-start="127" selection-end="127" vertical-scroll-proportion="0.0">
+        <state line="3" column="54" selection-start="127" selection-end="127" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientUtil/networkAndDom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="64" selection-start="2496" selection-end="2496" vertical-scroll-proportion="-5.178571">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/clientUtil/misc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="8" selection-start="940" selection-end="940" vertical-scroll-proportion="-3.607143">
+        <state line="43" column="34" selection-start="1652" selection-end="1652" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clientUtil/networkAndDom.js">
+    <entry file="file://$PROJECT_DIR$/kicked.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="50" selection-start="310" selection-end="310" vertical-scroll-proportion="-6.107143">
+        <state line="0" column="110" selection-start="110" selection-end="110" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/Util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="19" selection-start="119" selection-end="119" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="38" selection-start="1871" selection-end="1871" vertical-scroll-proportion="-11.75">
+        <state line="81" column="19" selection-start="2322" selection-end="2322" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="81" selection-start="1758" selection-end="1758" vertical-scroll-proportion="-10.071428">
+        <state line="53" column="105" selection-start="1897" selection-end="1897" vertical-scroll-proportion="-4.9">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="9" selection-start="1285" selection-end="1285" vertical-scroll-proportion="-4.071429">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="11" selection-start="4994" selection-end="4994" vertical-scroll-proportion="0.9010309">
-          <folding>
-            <element signature="e#530#557#0" expanded="false" />
-            <element signature="n#!!block;n#startNewTimer#0" expanded="false" />
-            <element signature="e#644#723#0" expanded="false" />
-            <element signature="e#796#4120#0" expanded="false" />
-            <element signature="e#859#895#0" expanded="false" />
-            <element signature="e#901#4118#0" expanded="false" />
-            <element signature="e#1031#1211#0" expanded="false" />
-            <element signature="e#1044#1115#0" expanded="false" />
-            <element signature="e#1327#2312#0" expanded="false" />
-            <element signature="e#1466#1522#0" expanded="false" />
-            <element signature="e#1528#1613#0" expanded="false" />
-            <element signature="e#1679#1764#0" expanded="false" />
-            <element signature="e#1911#1963#0" expanded="false" />
-            <element signature="e#2105#2170#0" expanded="false" />
-            <element signature="e#2368#2823#0" expanded="false" />
-            <element signature="e#2944#3804#0" expanded="false" />
-            <element signature="e#2981#3030#0" expanded="false" />
-            <element signature="e#3102#3167#0" expanded="false" />
-            <element signature="e#3299#3515#0" expanded="false" />
-            <element signature="e#3521#3738#0" expanded="false" />
-            <element signature="e#3829#3970#0" expanded="false" />
-            <element signature="e#3866#3915#0" expanded="false" />
-            <element signature="e#3995#4112#0" expanded="false" />
-            <element signature="n#!!block;n#setCurrentPlayer#0" expanded="false" />
-            <element signature="n#!!block;n#updateCards#0" expanded="false" />
-            <element signature="e#4329#4392#0" expanded="false" />
-            <element signature="e#4419#4619#0" expanded="false" />
-            <element signature="e#4515#4585#0" expanded="false" />
-            <element signature="e#5004#5042#0" expanded="false" />
-            <element signature="e#5051#5084#0" expanded="false" />
-            <element signature="e#5134#5302#0" expanded="false" />
-            <element signature="e#5189#5298#0" expanded="false" />
-            <element signature="e#5249#5292#0" expanded="false" />
-            <element signature="n#!!block;n#broadcast#0" expanded="false" />
-            <element signature="n#!!block;n#getNext#0" expanded="false" />
-            <element signature="n#!!block;n#kickPlayer#0" expanded="false" />
-            <element signature="e#5830#5862#0" expanded="false" />
-            <element signature="n#!!block;n#getPlayerData#0" expanded="false" />
-            <element signature="e#5980#6020#0" expanded="false" />
-            <element signature="n#!!block;n#getCards#0" expanded="false" />
-            <element signature="e#6138#6195#0" expanded="false" />
-            <element signature="n#!!block;n#addPlayer#0" expanded="false" />
-            <element signature="n#!!block;n#getCommonBroadcastData#0" expanded="false" />
-            <element signature="n#!!block;n#addEvent#0" expanded="false" />
-            <element signature="e#6551#6606#0" expanded="false" />
-            <element signature="e#6695#6729#0" expanded="false" />
-            <element signature="e#6738#6761#0" expanded="false" />
-          </folding>
+        <state line="40" column="212" selection-start="1450" selection-end="1450" vertical-scroll-proportion="0.7257732">
+          <folding />
         </state>
       </provider>
     </entry>
