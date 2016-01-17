@@ -3,24 +3,27 @@ var app = require('express')();
 var httpServer = require('http').Server(app);
 var io = require('socket.io')(httpServer);
 var http = require("http");
-var read = Util.read;
-var write = Util.write;
+var read = Util.read.bind(Util);
+var write = Util.write.bind(Util);
 var fs = require('fs');
 var won;
 var _ = require('underscore');
 var serveFile = Util.serveFile;
 var del = Util.del;
-var lock = {};
-var players = [],kickList = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, timerLength=10 * 1000, timer, defaultCardNo = 10;
+var lock = [];
+var players = [], kickList = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, TIMERLENGTH=90 * 1000, timer, defaultCardNo = 10;
 io.on('connection', function(socket){
     isConnected = true;
 });
 function startNewTimer(){
     clearTimeout(timer);
     timer = setTimeout(function(){
+        lock.push(currPlayer);
+        addEvent(currPlayer + ' timed out. assumed as passed his turn');
+        console.log(currPlayer + ' timed out. assumed as passed his turn');
         setCurrentPlayer(getNext(currPlayer));
         startNewTimer();
-    }, timerLength);
+    }, TIMERLENGTH);
 }
 startNewTimer();
 http.createServer( function(req, res) {
@@ -58,11 +61,14 @@ http.createServer( function(req, res) {
             write(name, carddata);
             }
             resp.carddata = carddata;
-            !events && addEvent('initiating game', 0);
+            !events.length && addEvent('initiating game', 0);
             resp.events = events.filter(function(evt){
                 return evt.ts >  ts;
             });
-            resp.won = won;
+            if(won){
+                resp.won = won;
+            }
+            resp.prevPlayer = prevPlayer;
             resp.currTabNo = currTabNo;
             var totTable = [];
             table.forEach(function(card){
@@ -75,10 +81,10 @@ http.createServer( function(req, res) {
         //place cards
         else if(type === "place"){
             //place cards on table
-            var cards = JSON.parse(Util.getParam('cards', req)); // an object containing the cards placed by the player
+            var cards = JSON.parse(Util.getParam('cards', req));
             currTabNo = currTabNo || Util.getParam('currTabNo', req);
+            console.log('currTabNo is '+currTabNo);
             table.push(cards);
-            prevPlayer = currPlayer;
             setCurrentPlayer(getNext(name));
             updateCards(name, cards, 'sub');
             startNewTimer();
@@ -89,22 +95,39 @@ http.createServer( function(req, res) {
             if(name !== currPlayer){
                 res.end('error');
             }
+            //here currPlayer tries a check on previous player
             var allTable = [];
             table.forEach(function(card){
                 allTable = allTable.concat(card);
             });
             var lastCards = table[table.length-1];
-            if(lastCards.every(function(card){  return card === currTabNo; })){
+            if(!lastCards){
+                res.end(JSON.stringify({
+                   status : 'error',
+                   label :   ' no cards on table. need to place some cards'
+                }));
+                return;
+            }
+            if(lastCards.every(function(card){  
+                return card == currTabNo; 
+            })){
                //no bluff
                 addEvent(currPlayer + ' pawned by ' +  prevPlayer);
-                setCurrentPlayer(prevPlayer);
-                res.end(lastCards);
-                currTabNo = 0;
+                res.end(JSON.stringify({
+                    status : 'youFailed',
+                    name : currPlayer
+                }));
+                updateCards(currPlayer, allTable, 'add');
+                startNewRound(prevPlayer);
             } else {
                 //bluff caught
                 addEvent(prevPlayer + ' pawned by ' +  currPlayer);
                 //broadcast('pawned', [prevPlayer, currPlayer]);
-                setCurrentPlayer(currPlayer);
+                updateCards(prevPlayer, allTable, 'add');
+                res.end(JSON.stringify({
+                    name : prevPlayer
+                }));
+                startNewRound(currPlayer);
             }
             table = [];
             res.end('success');
@@ -113,8 +136,8 @@ http.createServer( function(req, res) {
                 res.end('error');
             }
             addEvent(name + ' passed');
-            lock[name] = true;
-            setCurrentPlayer(getNext(name));
+            lock.push(name);
+            setCurrentPlayer(getNext(name, true));
             startNewTimer();
             res.end('success');
         } else if(type === "kick"){
@@ -129,20 +152,17 @@ http.createServer( function(req, res) {
 }).listen(process.argv[2] || 7000);
 
 function setCurrentPlayer(name){
+    if(!name) return;
     currPlayer = name;
-    //addEvent('current player set as '+name);
+    console.log('current player set as '+name);
 }
 
 function updateCards(name, cards,action){
     if(action === "add"){
-        write(name, ( read(name) || [] ).concat(name));
+        write(name, ( read(name) || [] ).concat(cards));
     } else if (action === "sub"){
         var ccard = read(name) || [];
         ccard.subArray(cards);
-        if(!ccard.length){
-            setWinnerAndRestart(name);
-            return;
-        }
         write(name, ccard);
     }
 }
@@ -159,6 +179,8 @@ rmdir( path , function ( err, dirs, files ){
     table = [];
     won = name;
     currTabNo = "";
+    Util._storage = {};
+    addEvent(name + " has won the game");
     setTimeout(function(){
         won = "";
     }, 4000);
@@ -186,11 +208,53 @@ function broadcast(label, arg){
      io.emit(label, JSON.stringify(arg));
 }
 
-function getNext(name){
+function getNext(name, dontSetPrev){
     //here put logic for game win
-    var ind = players.indexOf(name);
-    if(ind === -1) return;
-    return players[ind === players.length-1 ? 0 : ind+1];
+    if(players.length === 1){
+        prevPlayer = currPlayer;
+        return players[0];
+    }
+    var ct = players.indexOf(name);
+    var ind = ct;
+    if(ind === -1) {
+        startNewRound(players[0]);
+        return;
+    }
+    //find  check for case of only one player left active. then activate him, as all others have passed then
+    var diff = _.difference(players, lock);
+    if(diff.length === 1){
+        startNewRound(diff[0], true);
+        return;
+    }
+    //check if everyone has passed before current player
+    if(diff.length === 0){
+        startNewRound(name, true);
+        return;
+    }
+    ct = ct === players.length-1 ? 0 :ct+1;
+    while(lock.indexOf(players[ct])!== -1){
+        ct = ct === players.length-1 ? 0 :ct+1;
+    }
+    if(!dontSetPrev) {
+        prevPlayer = currPlayer;
+    }
+    if(read(players[ct]) && !read(players[ct]).length){
+        setWinnerAndRestart(players[ct]);
+    }
+    return players[ct];
+}
+
+function startNewRound(name, leaveTable, noWinCheck){
+    if(read(name) && !read(name).length && !noWinCheck){
+        setWinnerAndRestart(name);
+    }
+    addEvent('new round starting from '+name+' table '+(leaveTable?'same':'cleared'));
+    prevPlayer = null;
+    currPlayer = name;
+    currTabNo = null;
+    lock = [];
+    if(!leaveTable) table = [];
+    startNewTimer();
 }
 
 function kickPlayer(player, byName){
@@ -198,9 +262,7 @@ function kickPlayer(player, byName){
     var ind = players.indexOf(player);
     if(ind === -1) return;
     players.splice(ind, 1);
-    if(currPlayer === player){
-        startNewTimer();
-    }
+    startNewRound(players[0], false, true);
     addEvent(player + ' was kicked by ' + byName);
     kickList.push(player);
 }
@@ -253,4 +315,9 @@ try{
 
 
 
-
+
+
+
+
+
+

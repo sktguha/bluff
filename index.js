@@ -76,13 +76,16 @@ function onPollResponse(data){
         alert(data.won + ' has won. press ok to reload page');
         location.reload();
     }
-    updatePlayers(data.playerdata, data.currPlayer);
+    updatePlayers(data.playerdata, data.currPlayer, data.prevPlayer);
     if(getUser() === data.currPlayer){
         $('#turn-container :input').prop('disabled', false);
     } else {
         $('#turn-container :input').prop('disabled', true);
     }
     if(_.difference(data.carddata, cards.concat(ctab)).length){
+        if(cards.concat(ctab).length && cards.concat(ctab).length < data.carddata.length ){
+            alert('oops your bluff has been caught');
+        }
         ctab = [];
         cards = data.carddata;
         updateCards();
@@ -90,6 +93,9 @@ function onPollResponse(data){
     currTabNo = data.currTabNo;
     if(currTabNo){
         $('#currTabNo')[0].value = currTabNo;
+    }
+    if(!currTabNo && $('#currTabNo')[0].disabled){
+        $('#currTabNo')[0].value = "";
     }
     $('#numOfCards')[0].innerText = (data.allTable || 0);
     data.events && data.events.forEach(function(e){

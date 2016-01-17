@@ -64,6 +64,7 @@ function setCookie(cname, cvalue){
     }
     }
 
+function polyfills(){
 Array.prototype.subArray = function(cards){
     var that = this;
     cards.forEach(function(card){
@@ -73,3 +74,8 @@ Array.prototype.subArray = function(cards){
         }
     });
 };
+Array.prototype.contains = function(e){
+    return this.indexOf(e) !== -1;
+}
+}
+polyfills();

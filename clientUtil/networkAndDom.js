@@ -1,8 +1,5 @@
 
 function sendShowCards(){
-    var data = JSON.stringify({
-        name : getUser()
-    });
     $.ajax({
         url : '/?type=show&name='+getUser(),
         datatype : 'json',
@@ -10,12 +7,15 @@ function sendShowCards(){
             // socket.emit('show cards', data );
             //this will come in response to showCards or a success
             data = JSON.parse(data);
-            if(data.status === "pawned"){
-                var cardsToAdd = JSON.parse(data.cardsToAdd);
-                cards.concat(cardsToAdd);
-                updateCards(cards);
+            if(data.status === "youFailed"){
+                alert('oops not a bluff');
+            } else if(data.status === "error"){
+                alert("error" + data.label);
+            }else {
+                alert('you caught '+data.name+" 's bluff" );
             }
-        }
+        },
+        error : onError
     });
 }
 
@@ -56,7 +56,7 @@ function _updateCardDom(carddata, myCards){
     });
 }
 
-function updatePlayers(pData, curr){
+function updatePlayers(pData, curr, prev){
     var template = "<span class='name'></span><span class='noc'> cards </span><input type='button' class = 'kick' value='kick'/>";
     document.getElementById('players').innerHTML = "";
     for(var name in pData){
@@ -71,6 +71,9 @@ function updatePlayers(pData, curr){
         } 
         if(name === curr){
             $(pe).addClass('curr-player');
+        }
+        if(name === prev){
+            $(pe).addClass('prev-player');
         }
         $('#players').append(pe);
     }

@@ -70,9 +70,11 @@ addEvent : function(e, ts){
         }
     });
 
-},
+    },
+    _storage : {},
     read : function(name){
-       var val;
+        return this._storage[name];
+        var val;
         try{
            val = fs.readFileSync("storage/"+name+".txt");
             val = JSON.parse(val);
@@ -82,6 +84,8 @@ addEvent : function(e, ts){
         return val;
     },
     write : function(name, value){
+        this._storage[name] = value;
+        return;
         fs.writeFileSync("storage/"+ name+".txt", JSON.stringify(value));
     },
     delete : function(name){

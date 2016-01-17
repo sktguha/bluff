@@ -61,13 +61,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="107" column="70" selection-start="4177" selection-end="4177" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#2684#3248#0" expanded="false" />
-              </folding>
+            <state line="230" column="26" selection-start="7786" selection-end="7786" vertical-scroll-proportion="0.7257732">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,7 +73,7 @@
       <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="60" selection-start="475" selection-end="475" vertical-scroll-proportion="0.0">
+            <state line="58" column="28" selection-start="1935" selection-end="1936" vertical-scroll-proportion="-13.766666">
               <folding />
             </state>
           </provider>
@@ -84,25 +82,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="19" selection-start="498" selection-end="498" vertical-scroll-proportion="-0.98275864">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="misc.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/clientUtil/misc.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="47" selection-start="298" selection-end="298" vertical-scroll-proportion="0.25462013">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Util.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/Util.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="33" selection-start="2240" selection-end="2240" vertical-scroll-proportion="0.0">
+            <state line="26" column="74" selection-start="878" selection-end="878" vertical-scroll-proportion="-6.785714">
               <folding />
             </state>
           </provider>
@@ -111,7 +91,25 @@
       <file leaf-file-name="networkAndDom.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/clientUtil/networkAndDom.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="30" selection-start="1100" selection-end="1100" vertical-scroll-proportion="-4.285714">
+            <state line="87" column="64" selection-start="3005" selection-end="3005" vertical-scroll-proportion="-12.428572">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="misc.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/clientUtil/misc.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Util.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/Util.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="79" column="34" selection-start="2280" selection-end="2280" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -144,13 +142,13 @@
         <option value="$PROJECT_DIR$/clientUtil.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/notes.txt" />
-        <option value="$PROJECT_DIR$/res/Util.js" />
-        <option value="$PROJECT_DIR$/clientUtil/networkAndDom.js" />
-        <option value="$PROJECT_DIR$/index.js" />
         <option value="$PROJECT_DIR$/kicked.html" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/res/Util.js" />
         <option value="$PROJECT_DIR$/clientUtil/misc.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/clientUtil/networkAndDom.js" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -498,20 +496,6 @@
         <state line="3" column="54" selection-start="127" selection-end="127" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/Util.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="33" selection-start="2240" selection-end="2240" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clientUtil/networkAndDom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="30" selection-start="1100" selection-end="1100" vertical-scroll-proportion="-4.285714">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/xhtml1-transitional.xsd">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2114" column="2" selection-start="61566" selection-end="61566" vertical-scroll-proportion="0.33266932">
@@ -526,32 +510,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/jquery.twinkle-0.8.0.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="107" column="70" selection-start="4177" selection-end="4177" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#2684#3248#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="60" selection-start="475" selection-end="475" vertical-scroll-proportion="0.0">
+        <state line="1" column="2454" selection-start="2518" selection-end="2518" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file://$PROJECT_DIR$/res/Util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="19" selection-start="498" selection-end="498" vertical-scroll-proportion="-0.98275864">
+        <state line="79" column="34" selection-start="2280" selection-end="2280" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/clientUtil/misc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="47" selection-start="298" selection-end="298" vertical-scroll-proportion="0.25462013">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientUtil/networkAndDom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="87" column="64" selection-start="3005" selection-end="3005" vertical-scroll-proportion="-12.428572">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="74" selection-start="878" selection-end="878" vertical-scroll-proportion="-6.785714">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="28" selection-start="1935" selection-end="1936" vertical-scroll-proportion="-13.766666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="230" column="26" selection-start="7786" selection-end="7786" vertical-scroll-proportion="0.7257732">
           <folding />
         </state>
       </provider>
