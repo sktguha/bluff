@@ -112,14 +112,14 @@ http.createServer( function(req, res) {
             if(name !== currPlayer){
                 res.end('error');
             }
-            addEvent(name + 'passed');
+            addEvent(name + ' passed');
             lock[name] = true;
             setCurrentPlayer(getNext(name));
             startNewTimer();
             res.end('success');
         } else if(type === "kick"){
              var playerToKick = Util.getParam('playerToKick', req);
-            kickPlayer(playerToKick);
+            kickPlayer(playerToKick, name);
         } else if(type === "chat"){
             addEvent(name + '-  '+ Util.getParam('content', req));
             res.end("success");
@@ -129,7 +129,7 @@ http.createServer( function(req, res) {
 
 function setCurrentPlayer(name){
     currPlayer = name;
-    addEvent('current player set as '+name);
+    //addEvent('current player set as '+name);
 }
 
 function updateCards(name, cards,action){
@@ -192,7 +192,7 @@ function getNext(name){
     return players[ind === players.length-1 ? 0 : ind+1];
 }
 
-function kickPlayer(player){
+function kickPlayer(player, byName){
     player = player || currPlayer;
     var ind = players.indexOf(player);
     if(ind === -1) return;
@@ -200,7 +200,7 @@ function kickPlayer(player){
     if(currPlayer === player){
         startNewTimer();
     }
-    addEvent('kick player ' + player);
+    addEvent(player + ' was kicked by ' + byName);
     kickList.push(player);
 }
 
