@@ -83,9 +83,9 @@ function onPollResponse(data){
         $('#turn-container :input').prop('disabled', true);
     }
     if(_.difference(data.carddata, cards.concat(ctab)).length){
-        if(cards.concat(ctab).length && cards.concat(ctab).length < data.carddata.length ){
-            alert('oops your bluff has been caught');
-        }
+        /*if(cards.concat(ctab).length && cards.concat(ctab).length < data.carddata.length ){
+            //alert('oops your bluff has been caught');
+        }   */
         ctab = [];
         cards = data.carddata;
         updateCards();

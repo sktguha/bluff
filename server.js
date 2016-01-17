@@ -9,7 +9,7 @@ var fs = require('fs');
 var won;
 var _ = require('underscore');
 var serveFile = Util.serveFile;
-var del = Util.del;
+var del = Util.del.bind(Util);
 var lock = [];
 var players = [], kickList = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, TIMERLENGTH=90 * 1000, timer, defaultCardNo = 10;
 io.on('connection', function(socket){
@@ -88,6 +88,7 @@ http.createServer( function(req, res) {
             setCurrentPlayer(getNext(name));
             updateCards(name, cards, 'sub');
             startNewTimer();
+            console.log(name + ' placed '+cards);
             addEvent(name + ' put '+cards.length+ (cards.length === 1 ? ' card' : ' cards') + '  on table');
             res.end('success');
         }  // show button will be disabled by client if not current turn or no cards on the table
@@ -262,6 +263,7 @@ function kickPlayer(player, byName){
     var ind = players.indexOf(player);
     if(ind === -1) return;
     players.splice(ind, 1);
+    del(player, "");
     startNewRound(players[0], false, true);
     addEvent(player + ' was kicked by ' + byName);
     kickList.push(player);
