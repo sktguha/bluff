@@ -121,7 +121,8 @@ http.createServer( function(req, res) {
              var playerToKick = Util.getParam('playerToKick', req);
             kickPlayer(playerToKick, name);
         } else if(type === "chat"){
-            addEvent(name + '-  '+ Util.getParam('content', req));
+            addEvent(name + '-  '+ decodeURIComponent(Util.getParam('content', req)));
+            console.log(name + '-  '+ decodeURIComponent(Util.getParam('content', req)));
             res.end("success");
         }
     }
@@ -252,3 +253,4 @@ try{
 
 
 
+

@@ -10,7 +10,7 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 <h2>Bluff Card Game<sup>beta</sup></h2>
 <input type="button" value="setUserName" id='user' onclick="login()">
-<form onsubmit="sendChat()">
+<form onsubmit="sendChat(); return false;">
 <input type="text" id='chat-content'/>
 <input type="submit" value="sendchatmessage" >
  </form>

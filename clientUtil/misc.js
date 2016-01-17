@@ -7,7 +7,7 @@ function login(){
 function sendChat(){
     var ct = $('#chat-content').val();
     $.ajax({
-         url : '/type=chat&content='+ct+'&user='+getUser(),
+         url : '/?type=chat&content='+ct+'&name='+getUser(),
         success :  function(){
             $('#chat-content').val("");
         }
