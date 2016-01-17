@@ -4,7 +4,16 @@ function login(){
     setCookie('user', user);
     $('#user').val('username is '+user+'. click to change');
 }
-
+function sendChat(){
+    var ct = $('#chat-content').val();
+    $.ajax({
+         url : '/type=chat&content='+ct+'&user='+getUser(),
+        success :  function(){
+            $('#chat-content').val("");
+        }
+    });
+   return false;
+}
 function getCardImage(i){
     //var map = {1:'ace', 11 : 'jack', 12: 'queen', 13:'king'};
     var img = document.createElement("img");
@@ -13,8 +22,9 @@ function getCardImage(i){
     img.style.width = img.style.height = '130px';
     return img;
 }
-var status = $('#events')[0];
+
 function updateStatus(msg){
+    var status = $('#events')[0];
     var st = new Date().toString();//new Date(msg.ts).getUTCSeconds() + ":"+new Date(msg.ts).getUTCMinutes() + ":" + new Date(msg.ts).getUTCHours();
     st += "\n" + msg.text;
     status.value = st + '\n' + status.value;

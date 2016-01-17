@@ -4,7 +4,18 @@ var cards = [], ctab = [];
 //window.error = function (e){
 //    alert('some error occured. please report to admin ' + e.toString());
 //};
-var shown = false, timeout = 500, currTabNo;
+var shown = false, timeout = 500, currTabNo,lastTs = 0;
+
+function sendPass(){
+    if(ctab.length){
+        if(!window.confirm('you have cards placed for sending. sure you want to pass ? ')){
+            return;
+        }
+    }
+    $.ajax({
+        url : '/?name='+getUser()+'&type=pass'
+    })
+}
 
 function sendPlaceCards(cards){
     cards = cards || ctab;
@@ -38,7 +49,7 @@ function sendPlaceCards(cards){
 poll();
 function poll(){
     $.ajax({
-        url : '/?type=init&name='+getUser()+'&eventts='+Date.now(),
+        url : '/?type=init&name='+getUser()+'&eventts='+lastTs,
         datatype : 'json',
         success : function(data){
             data = JSON.parse(data);
@@ -81,7 +92,12 @@ function onPollResponse(data){
         $('#currTabNo')[0].value = currTabNo;
     }
     $('#numOfCards')[0].innerText = (data.allTable || 0);
-    data.events && data.events.forEach(function(e){ updateStatus(e);});
+    data.events && data.events.forEach(function(e){
+        updateStatus(e);
+        if(e.ts > lastTs){
+            lastTs = e.ts;
+        }
+    });
 }
 
 function _setupListeners(){

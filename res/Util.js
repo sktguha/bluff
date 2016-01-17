@@ -83,5 +83,8 @@ addEvent : function(e, ts){
     },
     write : function(name, value){
         fs.writeFileSync("storage/"+ name+".txt", JSON.stringify(value));
+    },
+    delete : function(name){
+        fs.deleteFileSync("storage/"+ name+".txt");
     }
 };

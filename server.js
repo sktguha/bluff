@@ -9,7 +9,9 @@ var fs = require('fs');
 var won;
 var _ = require('underscore');
 var serveFile = Util.serveFile;
-var players = [],kickList = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, timerLength=5 * 1000, timer, defaultCardNo = 10;
+var del = Util.del;
+var lock = {};
+var players = [],kickList = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, timerLength=10 * 1000, timer, defaultCardNo = 10;
 io.on('connection', function(socket){
     isConnected = true;
 });
@@ -48,7 +50,7 @@ http.createServer( function(req, res) {
                 resp.status = "welcome";
             } else {
                 resp.status = "new";
-                addPlayer(name);
+                addPlayer(name , req.connection.remoteAddress);
             }
             var carddata = read(name);
             if(!carddata ){
@@ -58,7 +60,7 @@ http.createServer( function(req, res) {
             resp.carddata = carddata;
             !events && addEvent('initiating game', 0);
             resp.events = events.filter(function(evt){
-                return evt.ts <  ts;
+                return evt.ts >  ts;
             });
             resp.won = won;
             resp.currTabNo = currTabNo;
@@ -80,6 +82,7 @@ http.createServer( function(req, res) {
             setCurrentPlayer(getNext(name));
             updateCards(name, cards, 'sub');
             startNewTimer();
+            addEvent(name + ' put '+cards.length+ (cards.length === 1 ? ' card' : ' cards') + '  on table');
             res.end('success');
         }  // show button will be disabled by client if not current turn or no cards on the table
         else if(type === "show"){
@@ -93,14 +96,14 @@ http.createServer( function(req, res) {
             var lastCards = table[table.length-1];
             if(lastCards.every(function(card){  return card === currTabNo; })){
                //no bluff
-                addEvent('pawned', [currPlayer, prevPlayer]);
+                addEvent(currPlayer + ' pawned by ' +  prevPlayer);
                 setCurrentPlayer(prevPlayer);
                 res.end(lastCards);
                 currTabNo = 0;
             } else {
                 //bluff caught
-                addEvent('pawned', [prevPlayer, currPlayer]);
-                broadcast('pawned', [prevPlayer, currPlayer]);
+                addEvent(prevPlayer + ' pawned by ' +  currPlayer);
+                //broadcast('pawned', [prevPlayer, currPlayer]);
                 setCurrentPlayer(currPlayer);
             }
             table = [];
@@ -109,17 +112,24 @@ http.createServer( function(req, res) {
             if(name !== currPlayer){
                 res.end('error');
             }
-            var ind = players.indexOf(name);
+            addEvent(name + 'passed');
+            lock[name] = true;
+            setCurrentPlayer(getNext(name));
+            startNewTimer();
+            res.end('success');
         } else if(type === "kick"){
              var playerToKick = Util.getParam('playerToKick', req);
             kickPlayer(playerToKick);
+        } else if(type === "chat"){
+            addEvent(name + '-  '+ Util.getParam('content', req));
+            res.end("success");
         }
     }
-}).listen(process.argv[2] || 8080);
+}).listen(process.argv[2] || 7000);
 
 function setCurrentPlayer(name){
     currPlayer = name;
-    console.log('current player set as '+name);
+    addEvent('current player set as '+name);
 }
 
 function updateCards(name, cards,action){
@@ -187,7 +197,6 @@ function kickPlayer(player){
     var ind = players.indexOf(player);
     if(ind === -1) return;
     players.splice(ind, 1);
-    write(player, "");
     if(currPlayer === player){
         startNewTimer();
     }
@@ -212,9 +221,10 @@ function getCards(no){
     return cts;
 }
 
-function addPlayer(name){
+function addPlayer(name, add){
     currPlayer = currPlayer || name;
     players.push(name);
+    addEvent(name + ' joined from '+add);
 }
 
 function getCommonBroadcastData(resp){

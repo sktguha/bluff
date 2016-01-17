@@ -8,8 +8,13 @@
     js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+<h2>Bluff Card Game<sup>beta</sup></h2>
 <input type="button" value="setUserName" id='user' onclick="login()">
-<table>
+<form onsubmit="sendChat()">
+<input type="text" id='chat-content'/>
+<input type="submit" value="sendchatmessage" >
+ </form>
+    <table>
     <tr id='players'></tr>
 </table>
 <div id='cards'>
@@ -21,7 +26,7 @@
 <table id='turn-container'><tr>
     <td><input type="button" value="pick/show"></td>
     <td><input type="button" value="place" onclick="sendPlaceCards()"></td>
-    <td><input type="button" value="pass"></td>
+    <td><input type="button" value="pass" onclick="sendPass()"></td>
     <td>current table number <input type='text' id='currTabNo'/></td>
      <td>Number of cards on table <span id="numOfCards"></span></td>
 </tr></table>
@@ -29,9 +34,9 @@
     <table class='table-container'>
         <tr id='current-table'></tr>
     </table>
-    Table here
+    place cards for sending here(click on card to add/remove from here)
 </div>
-<textarea id='events' rows="" cols=""></textarea>
+<textarea id='events' rows="50" cols="50"></textarea>
 <script>
     //for dev env only
     /*if(location.host.indexOf('localhost') === 0){
