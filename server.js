@@ -169,26 +169,15 @@ function updateCards(name, cards,action){
 
 function setWinnerAndRestart(name){
 won = name;
-var rmdir = require( 'rmdir' );
-var path  = './storage';
-rmdir( path , function ( err, dirs, files ){
-    console.log( dirs );
-    console.log( files );
-    console.log( 'all files are removed' );
-    players = [];
-    table = [];
-    won = name;
-    currTabNo = "";
-    Util._storage = {};
-    addEvent(name + " has won the game");
-    setTimeout(function(){
-        won = "";
-    }, 4000);
-    try{
-    fs.mkdirSync('./storage');
-    } catch(e){
-        console.error(e);
-    }
+players = [];
+table = [];
+won = name;
+currTabNo = "";
+Util._storage = {};
+addEvent(name + " has won the game");
+setTimeout(function(){
+	won = "";
+}, 4000);
 });
 }
 
