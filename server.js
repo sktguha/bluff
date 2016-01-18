@@ -149,8 +149,8 @@ http.createServer( function(req, res) {
             res.end("success");
         }
     }
-}).listen(process.argv[2] || 7000);
-console.log('server started');
+}).listen(process.env.PORT || 7000);
+console.log('server started on '+process.env.PORT);
 function setCurrentPlayer(name){
     if(!name) return;
     currPlayer = name;
