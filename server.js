@@ -1,4 +1,5 @@
-var Util = require("./res/util");
+console.log('init started');
+var Util = require("./res/Util");
 var app = require('express')();
 var httpServer = require('http').Server(app);
 var io = require('socket.io')(httpServer);
@@ -151,7 +152,7 @@ http.createServer( function(req, res) {
         }
     }
 }).listen(process.argv[2] || 7000);
-
+console.log('server started');
 function setCurrentPlayer(name){
     if(!name) return;
     currPlayer = name;

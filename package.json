@@ -16,6 +16,9 @@
     "card",
     "game"
   ],
+  "scripts": {
+    "test": "echo 'no test for now'"
+  },
   "author": "saikat guha",
   "license": "GNU",
   "bugs": {
