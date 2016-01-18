@@ -178,7 +178,6 @@ addEvent(name + " has won the game");
 setTimeout(function(){
 	won = "";
 }, 4000);
-});
 }
 
 Array.prototype.subArray = function(cards){
