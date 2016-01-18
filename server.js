@@ -1,13 +1,11 @@
 console.log('init started');
 var Util = require("./res/Util");
-var app = require('express')();
-var httpServer = require('http').Server(app);
-var io = require('socket.io')(httpServer);
 var http = require("http");
 var read = Util.read.bind(Util);
 var write = Util.write.bind(Util);
 var fs = require('fs');
 var won;
+var io = { on : function(){}};
 var _ = require('underscore');
 var serveFile = Util.serveFile;
 var del = Util.del.bind(Util);
