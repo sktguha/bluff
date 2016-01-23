@@ -61,10 +61,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="74" selection-start="1365" selection-end="1365" vertical-scroll-proportion="-6.9666667">
+            <state line="8" column="9" selection-start="232" selection-end="232" vertical-scroll-proportion="0.037924152">
               <folding />
             </state>
           </provider>
@@ -79,10 +79,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="9" selection-start="255" selection-end="255" vertical-scroll-proportion="0.29571983">
+            <state line="10" column="25" selection-start="313" selection-end="313" vertical-scroll-proportion="-6.3333335">
               <folding />
             </state>
           </provider>
@@ -155,9 +155,9 @@
         <option value="$PROJECT_DIR$/res/Util.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/clientUtil/misc.js" />
         <option value="$PROJECT_DIR$/clientUtil/networkAndDom.js" />
+        <option value="$PROJECT_DIR$/server.js" />
       </list>
     </option>
   </component>
@@ -514,13 +514,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="74" selection-start="1365" selection-end="1365" vertical-scroll-proportion="-6.9666667">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/clientUtil/misc.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="59" column="84" selection-start="2136" selection-end="2136" vertical-scroll-proportion="0.0">
@@ -549,13 +542,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clientUtil/networkAndDom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="16" selection-start="451" selection-end="451" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="69" selection-start="1074" selection-end="1074" vertical-scroll-proportion="-1.0178572">
@@ -565,7 +551,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="9" selection-start="255" selection-end="255" vertical-scroll-proportion="0.29571983">
+        <state line="10" column="25" selection-start="313" selection-end="313" vertical-scroll-proportion="-6.3333335">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/clientUtil/networkAndDom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="16" selection-start="451" selection-end="451" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="9" selection-start="232" selection-end="232" vertical-scroll-proportion="0.037924152">
           <folding />
         </state>
       </provider>
