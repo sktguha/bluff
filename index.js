@@ -13,7 +13,12 @@ function sendPass(){
         }
     }
     $.ajax({
-        url : '/?name='+getUser()+'&type=pass'
+        url : '/?name='+getUser()+'&type=pass',
+        success : function(resp){
+            resp = JSON.parse(resp);
+            if(resp.status === 'error')
+                alert(resp.label);
+        }
     })
 }
 
@@ -38,7 +43,10 @@ function sendPlaceCards(cards){
     $.ajax({
         url : '/?type=place&cards='+JSON.stringify(cards)+'&currTabNo='+currTabNo+'&name='+getUser(),
         success : function(e){
-            if(e === "error") return;
+            e = JSON.parse(e);
+            if(e.status === "error") {
+                alert(e.label);
+            }
             //set cards on the table to zero
             ctab = [];
             updateCards();
@@ -77,11 +85,11 @@ function onPollResponse(data){
         location.reload();
     }
     updatePlayers(data.playerdata, data.currPlayer, data.prevPlayer);
-    if(getUser() === data.currPlayer){
-        $('#turn-container :input').prop('disabled', false);
-    } else {
-        $('#turn-container :input').prop('disabled', true);
-    }
+    //if(getUser() === data.currPlayer){
+     //   $('#turn-container :input').prop('disabled', false);
+   // } else {
+   //     $('#turn-container :input').prop('disabled', true);
+  //  }
     if(_.difference(data.carddata, cards.concat(ctab)).length){
         /*if(cards.concat(ctab).length && cards.concat(ctab).length < data.carddata.length ){
             //alert('oops your bluff has been caught');
@@ -97,7 +105,7 @@ function onPollResponse(data){
     if(!currTabNo && $('#currTabNo')[0].disabled){
         $('#currTabNo')[0].value = "";
     }
-    $('#numOfCards')[0].innerText = (data.allTable || 0);
+    $('#numOfCards').text(data.allTable || 0);
     data.events && data.events.forEach(function(e){
         updateStatus(e);
         if(e.ts > lastTs){
@@ -129,7 +137,7 @@ function updateCards(cardsInHand, cardsOnTable){
     _updateCardDom(_sortCards(cardsOnTable),  $('#current-table')[0]);
     _setupListeners();
 }
-
+updateCards = _.throttle(updateCards, 500);
 /*
  var ctab = [];
  socket.on('kick player', function(msg){

@@ -10,7 +10,7 @@ function sendShowCards(){
             if(data.status === "youFailed"){
                 alert('oops not a bluff');
             } else if(data.status === "error"){
-                alert("error" + data.label);
+                alert(data.label);
             }else {
                 alert('you caught '+data.name+" 's bluff" );
             }
@@ -39,7 +39,7 @@ function _sortCards(cards){
 }
 
 function _updateCardDom(carddata, myCards){
-    myCards.innerHTML = "";
+    $(myCards).empty();
     carddata.forEach(function(card){
         var num = card.num;
         var td = document.createElement("td");
@@ -48,8 +48,8 @@ function _updateCardDom(carddata, myCards){
         var elem = document.createElement("div");
         elem.innerHTML = "<div class='card'></div><table><tr><td><span class='cardno'></span></td></tr></table></div>";
         var img = getCardImage(num);
-        elem.getElementsByClassName('card')[0].appendChild(img);
-        elem.getElementsByClassName('cardno')[0].innerText = card.quantity;
+        $('.card', elem).append(img);
+        $('.cardno', elem).text(card.quantity);
         $(elem).data('no',num);
         td.appendChild(elem);
         myCards.appendChild(td);
@@ -58,13 +58,13 @@ function _updateCardDom(carddata, myCards){
 
 function updatePlayers(pData, curr, prev){
     var template = "<span class='name'></span><span class='noc'> cards </span><input type='button' class = 'kick' value='kick'/>";
-    document.getElementById('players').innerHTML = "";
+    $('#players').empty();
     for(var name in pData){
         var pe = document.createElement("td");
         pe.className = 'playerContainer';
         $(pe).append(template);
-        pe.getElementsByClassName('name')[0].innerText = name+" ";
-        pe.getElementsByClassName('noc')[0].innerText= pData[name];
+        $('.name', pe).text(name+" ");
+        $('.noc', pe).text(pData[name]);
         if(name === getUser()){
             //pe.getElementsByClassName('name')[0].innerText = "you  ";
             $(pe).addClass('own-player');
