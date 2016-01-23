@@ -48,8 +48,8 @@ function getCookie(cname) {
     }
     return "";
 }
-function onError(){
-    alert('request to server failed. checking your internet connection or reload page. if problem persists clear browser cache and try again');
+function onError(e){
+    alert('request to server failed. checking your internet connection or reload page. if problem persists clear browser cache and try again ' + JSON.stringify(e));
 }
 onError = _.throttle(onError, 1000);
 function setCookie(cname, cvalue){

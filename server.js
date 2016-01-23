@@ -30,8 +30,14 @@ http.createServer( function(req, res) {
     if(req.url.indexOf("?") === -1){
         serveFile(req, res);
     } else {
-        var name = Util.getParam('name', req); //the players id
+        var name = decodeURIComponent(Util.getParam('name', req)); //the players id
         var type = Util.getParam('type', req);
+        if(won){
+            res.end(JSON.stringify({
+                'won' : won
+            }));
+            return;
+        }
         if(kickList.indexOf(name) !== -1){
             res.end(JSON.stringify('kick'));
             setTimeout(function(){
@@ -64,9 +70,6 @@ http.createServer( function(req, res) {
             resp.events = events.filter(function(evt){
                 return evt.ts >  ts;
             });
-            if(won){
-                resp.won = won;
-            }
             resp.prevPlayer = prevPlayer;
             resp.currTabNo = currTabNo;
             var totTable = [];
@@ -80,8 +83,27 @@ http.createServer( function(req, res) {
         //place cards
         else if(type === "place"){
             //place cards on table
+            if(name !== currPlayer){
+                res.end(JSON.stringify({
+                    status : 'error',
+                    label : 'not your turn'
+                }));
+                return;
+            }
+
             var cards = JSON.parse(Util.getParam('cards', req));
+            if( _.intersection(cards, read(name)).length === 0 ){
+                res.end(JSON.stringify({
+                    'status' : 'error',
+                    'label' : 'you don"t have those cards'
+                }));
+                return;
+            }   
             currTabNo = currTabNo || Util.getParam('currTabNo', req);
+            if(!currTabNo){
+                console.error('got blank currTabNo ' + currTabNo);
+                addEvent('got blank currTabNo ' + currTabNo);
+            }
             console.log('currTabNo is '+currTabNo);
             table.push(cards);
             setCurrentPlayer(getNext(name));
@@ -89,11 +111,22 @@ http.createServer( function(req, res) {
             startNewTimer();
             console.log(name + ' placed '+cards);
             addEvent(name + ' put '+cards.length+ (cards.length === 1 ? ' card' : ' cards') + '  on table');
-            res.end('success');
+            res.end(JSON.stringify('success'));
         }  // show button will be disabled by client if not current turn or no cards on the table
         else if(type === "show"){
             if(name !== currPlayer){
-                res.end('error');
+                res.end(JSON.stringify({
+                    status : 'error',
+                    label : 'not your turn'
+                }));
+                return;
+            }
+            if(!prevPlayer){
+                res.end(JSON.stringify({
+                    status : 'error',
+                    label : 'no player has placed cards before in this round'
+                }));
+                return;
             }
             //here currPlayer tries a check on previous player
             var allTable = [];
@@ -133,7 +166,10 @@ http.createServer( function(req, res) {
             res.end('success');
         } else if(type === "pass"){
             if(name !== currPlayer){
-                res.end('error');
+                res.end(JSON.stringify({
+                    status : 'error',
+                    label : 'not your turn'
+                }));
             }
             addEvent(name + ' passed');
             lock.push(name);
@@ -150,18 +186,20 @@ http.createServer( function(req, res) {
         }
     }
 }).listen(process.env.PORT || 7000);
-console.log('server started on '+process.env.PORT);
+console.log('server started on '+process.env.PORT || 7000);
 function setCurrentPlayer(name){
-    if(!name) return;
-    currPlayer = name;
     console.log('current player set as '+name);
+	addEvent('current player set as '+name);
+	if(!name) return;
+    currPlayer = name;
 }
 
 function updateCards(name, cards,action){
+    var ccard = read(name);
+    if(  ! _.isArray(ccard)) return;
     if(action === "add"){
-        write(name, ( read(name) || [] ).concat(cards));
+        write(name, ccard.concat(cards));
     } else if (action === "sub"){
-        var ccard = read(name) || [];
         ccard.subArray(cards);
         write(name, ccard);
     }
@@ -301,6 +339,8 @@ try{
 } catch(e){
     console.log(e);
 }
+
+
 
 
 
