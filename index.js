@@ -32,16 +32,16 @@ function sendPlaceCards(cards){
         }, 1000);
         return;
     }
-    currTabNo = currTabNo || $('#currTabNo')[0].value;
+    var tempCurrTabNo = $('#currTabNo')[0].value;
 
-    if(!Number(currTabNo) || currTabNo > 13 || currTabNo < 1){
+    if(!currTabNo && (!Number(tempCurrTabNo) || tempCurrTabNo > 13 || tempCurrTabNo < 1)){
          alert("put number in the input box you want to place cards as (1,11,12,13 for A,J,Q,K respectively)");
-         currTabNo = $('#currTabNo')[0].value;
+         tempCurrTabNo = $('#currTabNo')[0].value;
          $('#currTabNo').twinkle();
         return;
     }
     $.ajax({
-        url : '/?type=place&cards='+JSON.stringify(cards)+'&currTabNo='+currTabNo+'&name='+getUser(),
+        url : '/?type=place&cards='+JSON.stringify(cards)+'&currTabNo='+tempCurrTabNo+'&name='+getUser(),
         success : function(e){
             e = JSON.parse(e);
             if(e.status === "error") {
@@ -98,10 +98,14 @@ function onPollResponse(data){
         cards = data.carddata;
         updateCards();
     }
-    currTabNo = data.currTabNo;
-    if(currTabNo){
-        $('#currTabNo')[0].value = currTabNo;
+   if(data.currTabNo && data.currTabNo !== currTabNo){
+       $('#currTabNoImg').empty();
+       $('#currTabNoImg').append('current claimed table number');
+        $('#currTabNoImg').append(getCardImage(data.currTabNo, { width:'100px' , height: '100px'} ) );
+    }  else if(!data.currTabNo){
+       $('#currTabNoImg').text(data.currPlayer === getUser() ? 'You are starting this round'  : 'No cards placed in this round yet');
     }
+    currTabNo = data.currTabNo;
     if(!currTabNo && $('#currTabNo')[0].disabled){
         $('#currTabNo')[0].value = "";
     }

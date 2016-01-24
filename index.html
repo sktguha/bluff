@@ -25,10 +25,11 @@
 </div>
 <table id='turn-container'><tr>
     <td><input type="button" value="pick/show" class='show' onclick="sendShowCards()"></td>
+    <td><input type='text' id='currTabNo'/></td>
     <td><input type="button" value="place" class='place' onclick="sendPlaceCards()"></td>
     <td><input type="button" value="pass" class='pass' onclick="sendPass()"></td>
-    <td>current table number <input type='text' id='currTabNo'/></td>
-     <td>Number of cards on table <span id="numOfCards"></span></td>
+    <td><div id='currTabNoImg' style='width:100px;height:100px;'></div></td>
+    <td>Number of cards on table <span id="numOfCards"></span></td>
 </tr></table>
 <div style="width:200px;height:200px" >
     <table class='table-container'>

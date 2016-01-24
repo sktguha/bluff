@@ -14,12 +14,14 @@ function sendChat(){
     });
    return false;
 }
-function getCardImage(i){
+function getCardImage(i, dim){
     //var map = {1:'ace', 11 : 'jack', 12: 'queen', 13:'king'};
+    dim = dim || {};
     var img = document.createElement("img");
     suitMap[i] = suitMap[i] || Math.floor(Math.random()*4);
     img.src = "images/"+ i + '_of_' + ['hearts','spades', 'clubs', 'diamonds'][suitMap[i]]+".png";
-    img.style.width = img.style.height = '130px';
+    img.style.width = dim.width || '130px';
+    img.style.height = dim.height || '130px';
     return img;
 }
 

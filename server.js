@@ -10,7 +10,7 @@ var _ = require('underscore');
 var serveFile = Util.serveFile;
 var del = Util.del.bind(Util);
 var lock = [];
-var players = [], kickList = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, TIMERLENGTH=90 * 1000, timer, defaultCardNo = 10;
+var players = [], cardStore = [], cardStoreCounter = 0,kickList = [], events, isConnected, currPlayer, prevPlayer, currCard, table = [],currTabNo , sendInitRequest = true, TIMERLENGTH=90 * 1000, timer, defaultCardNo = 10;
 io.on('connection', function(socket){
     isConnected = true;
 });
@@ -98,7 +98,8 @@ http.createServer( function(req, res) {
                     'label' : 'you don"t have those cards'
                 }));
                 return;
-            }   
+            }
+            //don't accept a table number if it is already there on server
             currTabNo = currTabNo || Util.getParam('currTabNo', req);
             if(!currTabNo){
                 console.error('got blank currTabNo ' + currTabNo);
@@ -212,6 +213,8 @@ table = [];
 won = name;
 currTabNo = "";
 Util._storage = {};
+cardStore = [];
+cardStoreCounter = 0;
 addEvent(name + " has won the game");
 setTimeout(function(){
 	won = "";
@@ -302,11 +305,25 @@ function getPlayerData(){
     return dat;
 }
 
+function getShuffledPack(){
+    var list = [];
+    for(var i = 1; i<=4;i++){
+         for(var j = 1;j<=13;j++){
+                list.push(j);
+         }
+     }
+    return _.shuffle(list);
+}
 function getCards(no){
     no = no || defaultCardNo;
+    if(cardStore.length < no ) {
+        cardStore = cardStore.concat(getShuffledPack());
+        cardStoreCounter ++;
+        addEvent('New pack opened. Total number of packs dealt ' +  cardStoreCounter);
+    }
     var cts = [];
     for(var i=0;i<no;i++){
-        cts.push(Math.floor(Math.random()*13)+1);
+        cts.push(cardStore.pop());
     }
     return cts;
 }
@@ -339,6 +356,7 @@ try{
 } catch(e){
     console.log(e);
 }
+
 
 
 
