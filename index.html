@@ -48,13 +48,14 @@
  </div>
  
 
-<div id='cards'>
-    <table>
-        <tr></tr>
-        <td id='cards-container'></td>
-    </table>
+<div id='cards row'>
+	<div class="ui fluid four cards" id='cards-container'>
+    <div class="card" ></div>
+    </div>
 </div>
+</br>
 
+<div class="row">
 <table id='turn-container'><tr>
     <td><div class="ui teal button show" onclick="sendShowCards()">pick/show</div></td>
     <td><div class="ui input"><input type='text' placeholder="value" id='currTabNo'/></div></td>
@@ -63,14 +64,18 @@
     <td><div id='currTabNoImg' style='width:100px;height:100px;'></div></td>
     <td>Number of cards on table <span id="numOfCards"></span></td>
 </tr></table>
-
-<div style="width:200px;height:200px" >
-    <table class='table-container'>
-        <tr id='current-table'></tr>
-    </table>
-    place cards for sending here(click on card to add/remove from here)
+</div>
 </div>
 
+<div class="row">
+<div class="ui label"> place cards for sending here (click on card to add/remove from here)</div> 
+<div class="ui four cards" id='current-table' >
+  
+</div>
+ 
+</div>
+<br>
+<br>
 <table class="ui celled striped table">
 	<thead>
 		<th>Player</th>
