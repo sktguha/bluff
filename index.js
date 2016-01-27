@@ -62,10 +62,10 @@ function poll(){
         success : function(data){
             data = JSON.parse(data);
             if(data.status === "welcome" && !shown){
-                showUpdate('you have logged in as an existing user . if this is not you please login or create new account again with your username');
+                //showUpdate('you have logged in as an existing user . if this is not you please login or create new account again with your username');
                 shown = true;
             } else if(data.status === "new" && !shown){
-                showUpdate('Account Created Successfully',"success");
+                //showUpdate('Account Created Successfully',"success");
                 shown = true;
             }
             onPollResponse(data);

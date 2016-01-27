@@ -34,16 +34,26 @@
 	</div>
 </div>
 <br>
-<div class="row">
-	<div class="sixteen column">
+<div class="ui grid">
+	<div class="eleven wide column">
 		<form onsubmit="sendChat(); return false;" autocomplete="off">
-			<div class="ui blue button" id='user' onclick="login()">setUserName</div>
+			<div class="ui blue button" id='user' onclick="login()"><i class="user icon"></i>set username</div>
 			<div class="ui action left icon input">
 				<i class="mail outline icon"></i>
 				<input type="text" placeholder="Send Message" id='chat-content'/>
 				<div class="ui submit teal button" type="submit" onclick="sendChat()">send chat message</div>
 			</div>
 		</form>
+	</div>
+	<div class="five wide column">
+		<div class="ui facebook button" onclick="shareURL('facebook')">
+			<i class="facebook icon"></i>
+				Share on Facebook
+		</div>
+		<div class="ui twitter button" onclick="shareURL('twitter')">
+			<i class="twitter icon"></i>
+				Tweet on Twitter
+		</div>
 	</div>
  </div>
 <table id='players'>
@@ -78,26 +88,99 @@
 </div>
 <br>
 <br>
-<table class="ui celled striped table">
-	<thead>
-		<th>Player</th>
-		<th># Cards</th>
-		<th>Action</th>
-	</thead>
-	<tbody id="players">
-		
-	</tbody>
-</table>
-
 <div class="ui segment">
 	<div class="ui top attached label">Log Messages</div>
 	<textarea id='events' rows="50" cols="50"></textarea>
 </div>
+
+<div class="ui modal">
+  <div class="header">Welcome!..</div>
+   <div class="center segment content">
+    <p id="facebook_status_text">Checking Facebook Login <i class="notched circle loading icon"></i></p>
+    <p class="ui center">
+	
+		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+		</fb:login-button>
+	</p>
+    <p></p>
+  </div>
+</div>
+
 <script>
 	    //for dev env only
    if(false && location.host.indexOf('localhost') === 0){
         alert = console.log.bind(console);
     }
+	$(document).ready(function(){
+	$('.ui.modal')
+	.modal('setting', 'closable', false)
+	.modal('show');
+	
+	});
+	function shareURL(site){
+		var URL = "";
+		switch(site){
+			case "facebook":
+				URL = "https://www.facebook.com/sharer/sharer.php?u=http://bluff.herokuapp.com/";
+				break;
+			case "twitter":
+				URL = "http://twitter.com/intent/tweet?text=Play%20bluff%20online!..&url=http://bluff.herokuapp.com/"
+		}
+		window.open(URL ,"Share", "width=600, height=600");
+	}
+	<!-------------------Facebook Plugin-------------->
+
+	window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '997555423639409',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+	FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+  };
+
+  function statusChangeCallback(response) {
+  console.log(response);
+    $('#facebook_status_text').text(' ');
+    if (response.status === 'connected') {
+           testAPI();
+    } else if (response.status === 'not_authorized') {
+      
+      showUpdate("Please allow access");
+	  
+    } else {
+      
+      showUpdate("Please Login into Facebook!..");
+    }
+  }
+
+ 
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  function testAPI() {
+     FB.api('/me', function(response) {
+      $('.ui.modal').modal('hide');
+	  $('#user').text(response.name);
+	  setCookie('user', response.name);
+	  showUpdate('Logged in as '+response.name+' ','success');
+    });
+  }
+
+	<!-------------------End of Facebook Plugin-------->
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
@@ -146,5 +229,7 @@
 </style>
 <a href="https://github.com/sktguha/bluff" target="_blank"><img style="position: absolute; bottom: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>
 <div class="fb-comments" data-href="http://sktguha.dlinkddns.com:7000" data-numposts="5"></div>
+
+
 </body>
     

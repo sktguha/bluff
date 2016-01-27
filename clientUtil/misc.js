@@ -33,10 +33,11 @@ function updateStatus(msg){
 }
 function getUser(){
     var name =  getCookie('user');
+	
     //TODO : set some count for this
     while(!name){
-        name = window.prompt('please enter username to continue. if you are exisiting user you will be logged in else a new account will be created');
-        setCookie('user', name);
+        checkLoginState();
+        name =  getCookie('user');
     };
     return name;
 }
