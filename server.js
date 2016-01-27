@@ -138,8 +138,7 @@ http.createServer( function(req, res) {
             if(!lastCards){
                 res.end(JSON.stringify({
                    status : 'error',
-                   label :   ' no cards on table. need to place some cards',
-				   type: 'error'
+                   label :   ' no cards on table. need to place some cards'
                 }));
                 return;
             }

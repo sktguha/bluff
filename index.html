@@ -41,20 +41,20 @@
 			<div class="ui action left icon input">
 				<i class="mail outline icon"></i>
 				<input type="text" placeholder="Send Message" id='chat-content'/>
-				<div class="ui submit teal button" type="submit">send chat message</div>
+				<div class="ui submit teal button" type="submit" onclick="sendChat()">send chat message</div>
 			</div>
 		</form>
 	</div>
  </div>
- 
-
+<table id='players'>
+</table>
+<br>
 <div id='cards'>
     <table>
         <tr></tr>
         <td id='cards-container'></td>
     </table>
 </div>
-
 <table id='turn-container'><tr>
     <td><div class="ui teal button show" onclick="sendShowCards()">pick/show</div></td>
     <td><div class="ui input"><input type='text' placeholder="value" id='currTabNo'/></div></td>
@@ -63,24 +63,12 @@
     <td><div id='currTabNoImg' style='width:100px;height:100px;'></div></td>
     <td>Number of cards on table <span id="numOfCards"></span></td>
 </tr></table>
-
 <div style="width:200px;height:200px" >
     <table class='table-container'>
         <tr id='current-table'></tr>
     </table>
     place cards for sending here(click on card to add/remove from here)
 </div>
-
-<table class="ui celled striped table">
-	<thead>
-		<th>Player</th>
-		<th># Cards</th>
-		<th>Action</th>
-	</thead>
-	<tbody id="players">
-		
-	</tbody>
-</table>
 
 <div class="ui segment">
 	<div class="ui top attached label">Log Messages</div>
@@ -98,10 +86,17 @@
 <script type="text/javascript" src="clientUtil/networkAndDom.js"></script>
 <script type="text/javascript" src="index.js"></script>
 <style type="text/css">
-
+    td {
+        padding-left : 2px;
+        padding-right : 2px;
+    }
+    #players {
+        border-collapse : separate;
+        width : 100%
+    }
     .playerContainer{
-        padding-top: 11px;
-        padding-bottom: 11px;
+        padding-left : 2px;
+        padding-right : 2px;
         background-color: #4CAF50;
         color: white;
     }
