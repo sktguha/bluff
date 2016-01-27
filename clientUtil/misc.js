@@ -51,7 +51,7 @@ function getCookie(cname) {
     return "";
 }
 function onError(e){
-    alert('request to server failed. checking your internet connection or reload page. if problem persists clear browser cache and try again ' + JSON.stringify(e));
+    showUpdate("lost connection with server","error");
 }
 onError = _.throttle(onError, 1000);
 function setCookie(cname, cvalue){
@@ -81,3 +81,23 @@ Array.prototype.contains = function(e){
 }
 }
 polyfills();
+
+/*Default Options for Messenger UI. See http://github.hubspot.com/messenger/docs/welcome/ for more info*/
+Messenger.options = {
+    extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
+	theme:'future'
+}
+
+/*Updates the messenger UI*/
+function showUpdate( msg, msg_type){
+
+		if (typeof(msg_type)==='undefined') msg_type = "info"; /*if no message type is passed , default it to info*/
+		
+		Messenger().post({
+		message:msg,
+		type:msg_type,
+		 showCloseButton: true
+		 });
+		 
+		 
+}

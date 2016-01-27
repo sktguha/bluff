@@ -1,4 +1,22 @@
-<head></head>
+<head>
+	<link rel="stylesheet" type="text/css" href="res/css/semantic.min.css"/>
+	<link rel="stylesheet" type="text/css" href="res/css/messenger.css"/>
+	<link rel="stylesheet" type="text/css" href="res/css/messenger-theme-future.css"/>
+	
+	<script src="jquery-1.11.1.js"></script>
+	<script src="jquery.twinkle-0.8.0.min.js"></script>
+	
+	<script src="res/js/semantic.min.js"></script>
+	<script src="res/js/messenger.min.js"></script>
+	<style type="text/css">
+	body{
+	margin:10px;
+	}
+	textarea{
+		width:100%;
+	}
+	</style>
+</head>
 <body>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -8,49 +26,79 @@
     js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-<h2>Bluff Card Game<sup>beta</sup></h2>
-<input type="button" value="setUserName" id='user' onclick="login()">
-<form onsubmit="sendChat(); return false;" autocomplete="off">
-<input type="text" id='chat-content'/>
-<input type="submit" value="sendchatmessage" >
- </form>
-    <table>
-    <tr id='players'></tr>
-</table>
+<div class="row">
+	<div class="ui raised segment">
+		<div class="sixteen column">
+			<h2 class="ui centered header">Bluff Card Game<sup>beta</sup></h2>
+		</div>
+	</div>
+</div>
+<br>
+<div class="row">
+	<div class="sixteen column">
+		<form onsubmit="sendChat(); return false;" autocomplete="off">
+			<div class="ui blue button" id='user' onclick="login()">setUserName</div>
+			<div class="ui action left icon input">
+				<i class="mail outline icon"></i>
+				<input type="text" placeholder="Send Message" id='chat-content'/>
+				<div class="ui submit teal button" type="submit">send chat message</div>
+			</div>
+		</form>
+	</div>
+ </div>
+ 
+
 <div id='cards'>
     <table>
         <tr></tr>
         <td id='cards-container'></td>
     </table>
 </div>
+
 <table id='turn-container'><tr>
-    <td><input type="button" value="pick/show" class='show' onclick="sendShowCards()"></td>
-    <td><input type='text' id='currTabNo'/></td>
-    <td><input type="button" value="place" class='place' onclick="sendPlaceCards()"></td>
-    <td><input type="button" value="pass" class='pass' onclick="sendPass()"></td>
+    <td><div class="ui teal button show" onclick="sendShowCards()">pick/show</div></td>
+    <td><div class="ui input"><input type='text' placeholder="value" id='currTabNo'/></div></td>
+    <td><div class="ui teal button place" onclick="sendPlaceCards()">place</div></td>
+    <td><div class="ui teal button pass" onclick="sendPass()">pass</td>
     <td><div id='currTabNoImg' style='width:100px;height:100px;'></div></td>
     <td>Number of cards on table <span id="numOfCards"></span></td>
 </tr></table>
+
 <div style="width:200px;height:200px" >
     <table class='table-container'>
         <tr id='current-table'></tr>
     </table>
     place cards for sending here(click on card to add/remove from here)
 </div>
-<textarea id='events' rows="50" cols="50"></textarea>
+
+<table class="ui celled striped table">
+	<thead>
+		<th>Player</th>
+		<th># Cards</th>
+		<th>Action</th>
+	</thead>
+	<tbody id="players">
+		
+	</tbody>
+</table>
+
+<div class="ui segment">
+	<div class="ui top attached label">Log Messages</div>
+	<textarea id='events' rows="50" cols="50"></textarea>
+</div>
 <script>
-    //for dev env only
+	    //for dev env only
    if(false && location.host.indexOf('localhost') === 0){
         alert = console.log.bind(console);
     }
 </script>
-<script src="jquery-1.11.1.js"></script>
-<script src="jquery.twinkle-0.8.0.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script type="text/javascript" src="clientUtil/misc.js"></script>
 <script type="text/javascript" src="clientUtil/networkAndDom.js"></script>
 <script type="text/javascript" src="index.js"></script>
 <style type="text/css">
+
     .playerContainer{
         padding-top: 11px;
         padding-bottom: 11px;
