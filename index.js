@@ -17,7 +17,7 @@ function sendPass(){
         success : function(resp){
             resp = JSON.parse(resp);
             if(resp.status === 'error')
-                alert(resp.label);
+                showUpdate(resp.label);
         }
     })
 }
@@ -25,7 +25,7 @@ function sendPass(){
 function sendPlaceCards(cards){
     cards = cards || ctab;
     if(!cards.length){
-        alert('please place some cards on the table else press pass if you want to pass');
+        showUpdate('please place some cards on the table else press pass if you want to pass');
         $('.card').children('img').twinkle();
         setTimeout(function(){
             $('#current-table').twinkle();
@@ -35,7 +35,7 @@ function sendPlaceCards(cards){
     var tempCurrTabNo = $('#currTabNo')[0].value;
 
     if(!currTabNo && (!Number(tempCurrTabNo) || tempCurrTabNo > 13 || tempCurrTabNo < 1)){
-         alert("put number in the input box you want to place cards as (1,11,12,13 for A,J,Q,K respectively)");
+         showUpdate("put number in the input box you want to place cards as (1,11,12,13 for A,J,Q,K respectively)");
          tempCurrTabNo = $('#currTabNo')[0].value;
          $('#currTabNo').twinkle();
         return;
@@ -45,7 +45,7 @@ function sendPlaceCards(cards){
         success : function(e){
             e = JSON.parse(e);
             if(e.status === "error") {
-                alert(e.label);
+                showUpdate(e.label);
             }
             //set cards on the table to zero
             ctab = [];
@@ -62,10 +62,10 @@ function poll(){
         success : function(data){
             data = JSON.parse(data);
             if(data.status === "welcome" && !shown){
-                alert('you have logged in as an existing user . if this is not you please login or create new account again with your username');
+                showUpdate('you have logged in as an existing user . if this is not you please login or create new account again with your username');
                 shown = true;
             } else if(data.status === "new" && !shown){
-                alert('create new account success');
+                showUpdate('Account Created Successfully',"success");
                 shown = true;
             }
             onPollResponse(data);
@@ -77,11 +77,11 @@ function poll(){
 
 function onPollResponse(data){
     if(data === "kick"){
-        alert('oops it seems you have been kicked from server. please ok to close. please wait atleast 10 sec to join again');
+        showUpdate('oops it seems you have been kicked from server. please ok to close. please wait atleast 10 sec to join again',"error");
         location.href = '/kicked.html';
     }
     if(data.won){
-        alert(data.won + ' has won. press ok to reload page');
+        showUpdate(data.won + ' has won. press ok to reload page',"success");
         location.reload();
     }
     updatePlayers(data.playerdata, data.currPlayer, data.prevPlayer);

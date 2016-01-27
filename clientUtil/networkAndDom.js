@@ -8,11 +8,11 @@ function sendShowCards(){
             //this will come in response to showCards or a success
             data = JSON.parse(data);
             if(data.status === "youFailed"){
-                alert('oops not a bluff');
+                showUpdate('oops not a bluff');
             } else if(data.status === "error"){
-                alert(data.label);
+                showUpdate(data.label);
             }else {
-                alert('you caught '+data.name+" 's bluff" );
+                showUpdate('you caught '+data.name+" 's bluff" );
             }
         },
         error : onError
@@ -57,13 +57,14 @@ function _updateCardDom(carddata, myCards){
 }
 
 function updatePlayers(pData, curr, prev){
-    var template = "<span class='name'></span><span class='noc'> cards </span><input type='button' class = 'kick' value='kick'/>";
+    var template = "<span class='name'></span><span class='noc'> cards </span>&nbsp;&nbsp;&nbsp;<input type='button' class = 'kick' value='kick'/>";
     $('#players').empty();
     for(var name in pData){
         var pe = document.createElement("td");
         pe.className = 'playerContainer';
         $(pe).append(template);
         $('.name', pe).text(name+" ");
+		$(pe).attr('kick',name+" ");
         $('.noc', pe).text(pData[name]);
         if(name === getUser()){
             //pe.getElementsByClassName('name')[0].innerText = "you  ";
@@ -78,7 +79,7 @@ function updatePlayers(pData, curr, prev){
         $('#players').append(pe);
     }
     $('.kick').on('click', function(e){
-        var player = $(e.target).siblings('.name')[0].textContent;
+        var player = $(e.target.parentElement).attr('kick');
         player = player && player.trim();
         if(!player) return;
         if(!window.confirm('are you sure you want to kick the player ' + player)) return;
