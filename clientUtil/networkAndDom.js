@@ -50,6 +50,7 @@ function _updateCardDom(carddata, myCards){
         var img = getCardImage(num);
 		div.style.width=img.style.width;		/*Prevent Overflow of border*/
 		div.style.height=img.style.height;		/*Prevent Overflow of border*/
+				
         $('.card', elem).append(img);
         $('.cardno', elem).text(card.quantity);
         $(elem).data('no',num);
