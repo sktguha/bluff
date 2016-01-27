@@ -35,10 +35,10 @@ function getUser(){
     var name =  getCookie('user');
 	
     //TODO : set some count for this
-    while(!name){
-        checkLoginState();
-        name =  getCookie('user');
-    };
+    if(!name){
+    checkLoginState();
+    throw new Error('name not found');
+    }
     return name;
 }
 function getCookie(cname) {

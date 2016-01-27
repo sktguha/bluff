@@ -1,5 +1,10 @@
 <head>
-	<link rel="stylesheet" type="text/css" href="res/css/semantic.min.css"/>
+    <meta property="og:url"           content="https://bluff.herokuapp.com" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Play bluff online" />
+    <meta property="og:description"   content="play the game of cards or I doubt it online" />
+</head>
+    <link rel="stylesheet" type="text/css" href="res/css/semantic.min.css"/>
 	<link rel="stylesheet" type="text/css" href="res/css/messenger.css"/>
 	<link rel="stylesheet" type="text/css" href="res/css/messenger-theme-future.css"/>
 	
@@ -111,94 +116,20 @@
    if(false && location.host.indexOf('localhost') === 0){
         alert = console.log.bind(console);
     }
-	$(document).ready(function(){
-	$('.ui.modal')
-	.modal('setting', 'closable', false)
-	.modal('show');
-	
-	});
-	function shareURL(site){
-		var URL = "";
-		switch(site){
-			case "facebook":
-				URL = "https://www.facebook.com/sharer/sharer.php?u=http://bluff.herokuapp.com/";
-				break;
-			case "twitter":
-				URL = "http://twitter.com/intent/tweet?text=Play%20bluff%20online!..&url=http://bluff.herokuapp.com/"
-		}
-		window.open(URL ,"Share", "width=600, height=600");
-	}
-	<!-------------------Facebook Plugin-------------->
 
-	window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '997555423639409',
-      xfbml      : true,
-      version    : 'v2.5'
-    });
-	FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-  };
-
-  function statusChangeCallback(response) {
-  console.log(response);
-    $('#facebook_status_text').text(' ');
-    if (response.status === 'connected') {
-           testAPI();
-    } else if (response.status === 'not_authorized') {
-      
-      showUpdate("Please allow access");
-	  
-    } else {
-      
-      showUpdate("Please Login into Facebook!..");
-    }
-  }
-
- 
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  function testAPI() {
-     FB.api('/me', function(response) {
-      $('.ui.modal').modal('hide');
-	  $('#user').text(response.name);
-	  setCookie('user', response.name);
-	  showUpdate('Logged in as '+response.name+' ','success');
-    });
-  }
-
-	<!-------------------End of Facebook Plugin-------->
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script type="text/javascript" src="clientUtil/login.js"></script>
 <script type="text/javascript" src="clientUtil/misc.js"></script>
 <script type="text/javascript" src="clientUtil/networkAndDom.js"></script>
 <script type="text/javascript" src="index.js"></script>
 <style type="text/css">
-    td {
-        padding-left : 2px;
-        padding-right : 2px;
-    }
     #players {
         border-collapse : separate;
         width : 100%
     }
     .playerContainer{
-        padding-left : 2px;
-        padding-right : 2px;
         background-color: #4CAF50;
         color: white;
     }

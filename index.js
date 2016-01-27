@@ -54,7 +54,6 @@ function sendPlaceCards(cards){
         error : onError
     });
 }
-poll();
 function poll(){
     $.ajax({
         url : '/?type=init&name='+getUser()+'&eventts='+lastTs,
