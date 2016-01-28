@@ -1,7 +1,14 @@
 $(document).ready(function(){
-    $('.ui.modal')
-        .modal('setting', 'closable', false)
-        .modal('show');
+    var user = getCookie('user');
+    if(!user) {
+        $('.ui.modal')
+            .modal('setting', 'closable', false)
+            .modal('show');
+    } else {
+        poll();
+        $('#user').text(user);
+    }
+
 
 });
 function shareURL(site){

@@ -1,6 +1,7 @@
 function logout(){
     if(!window.confirm('sure you want to log out ?')) return;
     deleteCookie('user');
+    window.FB.logout();
     location.reload();
 }
 function sendChat(){
@@ -104,13 +105,14 @@ function showUpdate( msg, msg_type){
 		 });
 }
 
-/*Make the Control fixed to the bottom on scroll*/
+/*Make the Control fixed to the bottom on scroll
 var elementPosition = $('#turn-container').offset();
 
 $(window).scroll(function(){
         if($(window).scrollTop() > elementPosition.top){
-              $('#turn-container').css('position','fixed').css('top','80%');
+              $('#turn-container').css('position','fixed').css('bottom','1%');
         } else {
             $('#turn-container').css('position','static');
         }    
 });
+*/

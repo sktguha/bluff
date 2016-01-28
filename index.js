@@ -75,7 +75,6 @@ function poll(){
 }
 
 function onPollResponse(data){
-    debugger;
     if(data === "kick"){
         showUpdate('oops it seems you have been kicked from server. please ok to close. please wait atleast 10 sec to join again',"error");
         location.href = '/kicked.html';
