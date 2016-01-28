@@ -20,6 +20,15 @@
 	textarea{
 		width:100%;
 	}
+    .useroptions {
+        display : inline-block;
+        float : right;
+    }
+
+    h2.ui.centered.header {
+        display : inline-block;
+        padding-left : 40%;
+    }
 	</style>
 </head>
 <body>
@@ -35,6 +44,7 @@
 	<div class="ui raised segment">
 		<div class="sixteen column">
 			<h2 class="ui centered header">Bluff Card Game<sup>beta</sup></h2>
+            <div class="useroptions"><div class="ui blue button" id="user"></div><div class="ui blue button logout-button"  onclick="logout()">logout</div></div>
 		</div>
 	</div>
 </div>
@@ -42,7 +52,6 @@
 <div class="ui grid">
 	<div class="eleven wide column">
 		<form onsubmit="sendChat(); return false;" autocomplete="off">
-			<div class="ui blue button" id='user' onclick="login()"><i class="user icon"></i>set username</div>
 			<div class="ui action left icon input">
 				<i class="mail outline icon"></i>
 				<input type="text" placeholder="Send Message" id='chat-content'/>
@@ -157,9 +166,12 @@
         border-width: 2px 2px 2px 2px;
         border: 2px double yellow;
     }
+    #current-table {
+        background-color : #00b5ad
+    }
 </style>
 <a href="https://github.com/sktguha/bluff" target="_blank"><img style="position: absolute; bottom: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>
-<div class="fb-comments" data-href="http://sktguha.dlinkddns.com:7000" data-numposts="5"></div>
+<div class="fb-comments" data-href="http://bluff.herokuapp.com" data-numposts="5"></div>
 
 
 </body>

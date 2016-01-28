@@ -1,8 +1,7 @@
-function login(){
-    var user = prompt('enter new user name');
-    if(!user) return;
-    setCookie('user', user);
-    $('#user').val('username is '+user+'. click to change');
+function logout(){
+    if(!window.prompt('sure you want to log out ?')) return;
+    deleteCookie('user');
+    location.reload();
 }
 function sendChat(){
     var ct = $('#chat-content').val();
@@ -65,6 +64,10 @@ function setCookie(cname, cvalue){
     } else {
         document.cookie = cname + "=" + cvalue;
     }
+    }
+
+    function deleteCookie(cname){
+        document.cookie = cname+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
     }
 
 function polyfills(){
