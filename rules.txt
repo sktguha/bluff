@@ -14,4 +14,10 @@ The results of each turn is shown below
  If they place one or more cards of their own, then the turn goes to the next player. The player usually says, ex- 2 more aces. so they have placed two cards .Currently number of cards is not considered for bluff. 
 2) pick up the cards thrown at the last turn (the three aces thrown in our case)
 
-Now this is the actual fun of bluff ! Now the cards picked up (three in our case) should be aces. If they are not aces but something different, as say, 7,3,1 etc then the last player , i.e player1 in our case will have to take into his/her own hand all the cards on the table
+Now this is the actual fun of bluff ! Now the cards picked up (three in our case) should be aces. If they are not aces but something different, as say, 7,3,1 etc then the last player , i.e player1 in our case will have to take into his/her own hand all the cards on the table.
+But if they are all aces , then the player2 will have to take all the cards on the table
+
+3) pass
+If the player passes, then the turn goes to the next player. And the next player has the same options.
+
+So finally the game ends if a turn comes to a player who does not have any cards in his hand then, that player is declared as the winner
