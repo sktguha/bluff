@@ -16,9 +16,14 @@ https://www.youtube.com/watch?v=QUqY4yAiD-A&index=1&list=PLpG-5tAPfrtt9xF36jw54o
 updated gameplay rules and future plans given below
 
 FUTURE PLANS
-1) implement it with websockets 
-2) Use token to play . The token are hidden in the internet . you have to find it and use it **
-3)play it from mobile
-4) expose rest Api to support multiple platform..
-5)use Ai (i.e bots) and speech recognition as annyang.js (for ex the player can say 2 more aces ) and the program automatically places the cards that were to be placed
+1)Have support for multiple rooms. Also maybe have option to have voice recognition compulsory in a room. As in bluff like
+ poker thew tone of voice can be useful to know when player is bluffing or not
+2)Database connectivity. currently there is no persistance.
+3)Implement it with websockets 
+4)Use token to play . The token are hidden in the internet . you have to find it and use it **
+5)Play it from mobile
+6)Expose rest Api to support multiple platform..
+7)Use Ai (i.e bots) and speech recognition, using annyang.js (for ex the player can say 2 more aces ) and the program automatically places the cards that were to be placed
+8) Add appear.in integration so that players can do video conferencing right from the browser
+
 UPDATED Gameplay  : https://raw.githubusercontent.com/sktguha/bluff/master/rules.txt
