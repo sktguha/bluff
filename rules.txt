@@ -1,4 +1,6 @@
-Bluff or I doubt it or Bullshit is a multiplayer card game. Our game is a slight variant of the canadian version. The rules and the gameplay will be explained below. The objective of a player is to eliminate all the cards in his hand. So any player can start first move. 
+Bluff or I doubt it or Bullshit is a multiplayer card game. Our game is a slight variant of the canadian version. 
+The rules and the gameplay will be explained below. The objective of a player is to eliminate all the cards in his hand.
+So any player can start first move. 
 
 The first player(lets call them player1 ) will place any number of cards(face down, i.e the number on the card should not be visible). He/she will claim all of them to be a specific number. for example three aces. In bluff suits are not important at all. only the number on the card matters.
 
@@ -11,13 +13,32 @@ Then the next player(let's call them player2 ) will play their turn. They have t
 The results of each turn is shown below
 
 1) place one or more cards of their own
- If they place one or more cards of their own, then the turn goes to the next player. The player usually says, ex- 2 more aces. so they have placed two cards .Currently number of cards is not considered for bluff. 
+ If they place one or more cards of their own, then the turn goes to the next player. The player usually says, ex- 2 more aces.
+ so they have placed two cards .Currently number of cards is not considered for bluff. 
 2) pick up the cards thrown at the last turn (the three aces thrown in our case)
 
-Now this is the actual fun of bluff ! Now the cards picked up (three in our case) should be aces. If they are not aces but something different, as say, 7,3,1 etc then the last player , i.e player1 in our case will have to take into his/her own hand all the cards on the table.
-But if they are all aces , then the player2 will have to take all the cards on the table
+Now this is the actual fun of bluff ! Now the cards picked up (three in our case) should be aces.
+If they are not aces but something different, as say, 7,3,1 etc then the last player , 
+i.e player1 in our case will have to take into his/her own hand all the cards on the table and a new round starts from player2
+But if they are all aces , then the player2 will have to take all the cards on the table and a new round starts from player1
+starting of a new round means that player can now start play with a new number. Recall that the cards played previously will still remain on the table. This does make the game more interesing as in case of show the losing player has to pick all the cards leftover from the previous rounds (if there on the table)
 
 3) pass
 If the player passes, then the turn goes to the next player. And the next player has the same options.
 
 So finally the game ends if a turn comes to a player who does not have any cards in his hand then, that player is declared as the winner
+
+POTENTIAL CONFUSIONS
+
+1) Only the last cards put by the previous player should be considered. 
+i.e say there are 7 cards beforehand on the table and say player3 places 2 cards and current table number
+(i.e the current number all cards are assumed to be as, in our previous example it was aces) is 8, then player4 picks up the cards, he/she only needs to look at the last cards places, i.e in this case will be 2 cards placed beforehand by player3. so if those two cards were indeed the current table number, then player4 has to pick it up else player3 will be picking it up
+
+PASSING LOGIC
+
+Passing logic is slightly complicated here. 
+The logic is that a player should not be able to play next time in the round he has passed
+i.e
+say for example there are four players playing
+p1	p2	p3	p4
+and p1 starts the round. ex - he places 2 of jacks. then let's say now p2 finds that he doesn't have any jacks in his hands. so he plays it safe and decides to pass. Then p3's chance comes. Now p3 say places some cards. then p4 again like p2 decides to play it safe and doesn't pass. Now turn comes to p1. say p1 does not pass and places some cards. Now p2 cannot play at all when his turn comes as he had passed in the previous round. Then p3's turn arrives. If he doesn't pass then turn skips pp4 and goes to p1. So now only p1 and p3 are playing. This continues as long as a new round is not started. That happens if say everyone except one player has passed and so a new round will start from that player or in case of pick/show the scenarios described previously will occur.
