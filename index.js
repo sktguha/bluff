@@ -99,7 +99,7 @@ function onPollResponse(data){
     }
    if(data.currTabNo && data.currTabNo !== currTabNo){
        $('#currTabNoImg').empty();
-       $('#currTabNoImg').append('current claimed table number');
+       $('#currTabNoImg').append('<div>current claimed table number</div>');
         $('#currTabNoImg').append(getCardImage(data.currTabNo, { width:'100px' , height: '100px'} ) );
     }  else if(!data.currTabNo){
        $('#currTabNoImg').text(data.currPlayer === getUser() ? 'You are starting this round'  : 'No cards placed in this round yet');
