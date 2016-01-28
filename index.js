@@ -4,6 +4,7 @@ var cards = [], ctab = [];
 //window.error = function (e){
 //    alert('some error occured. please report to admin ' + e.toString());
 //};
+
 var shown = false, timeout = 500, currTabNo,lastTs = 0;
 
 function sendPass(){

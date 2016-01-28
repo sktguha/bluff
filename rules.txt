@@ -1,0 +1,17 @@
+Bluff or I doubt it or Bullshit is a multiplayer card game. Our game is a slight variant of the canadian version. The rules and the gameplay will be explained below. The objective of a player is to eliminate all the cards in his hand. So any player can start first move. 
+
+The first player(lets call them player1 ) will place any number of cards(face down, i.e the number on the card should not be visible). He/she will claim all of them to be a specific number. for example three aces. In bluff suits are not important at all. only the number on the card matters.
+
+
+Then the next player(let's call them player2 ) will play their turn. They have three choices, 
+1) place one or more cards of their own
+2) pick up the cards thrown at the last turn (the three aces thrown in our case)
+3) pass
+
+The results of each turn is shown below
+
+1) place one or more cards of their own
+ If they place one or more cards of their own, then the turn goes to the next player. The player usually says, ex- 2 more aces. so they have placed two cards .Currently number of cards is not considered for bluff. 
+2) pick up the cards thrown at the last turn (the three aces thrown in our case)
+
+Now this is the actual fun of bluff ! Now the cards picked up (three in our case) should be aces. If they are not aces but something different, as say, 7,3,1 etc then the last player , i.e player1 in our case will have to take into his/her own hand all the cards on the table
