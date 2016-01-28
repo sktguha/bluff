@@ -1,5 +1,5 @@
 function logout(){
-    if(!window.prompt('sure you want to log out ?')) return;
+    if(!window.confirm('sure you want to log out ?')) return;
     deleteCookie('user');
     location.reload();
 }
@@ -102,6 +102,15 @@ function showUpdate( msg, msg_type){
 		type:msg_type,
 		 showCloseButton: true
 		 });
-		 
-		 
 }
+
+/*Make the Control fixed to the bottom on scroll*/
+var elementPosition = $('#turn-container').offset();
+
+$(window).scroll(function(){
+        if($(window).scrollTop() > elementPosition.top){
+              $('#turn-container').css('position','fixed').css('top','80%');
+        } else {
+            $('#turn-container').css('position','static');
+        }    
+});

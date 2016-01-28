@@ -46,7 +46,7 @@ function _updateCardDom(carddata, myCards){
         div.className = 'ui card card-container';
         $(div).css('text-align', 'center');
         var elem = document.createElement("div");
-        elem.innerHTML = "<div class='card'></div><span class='cardno' style='color:green'></span></div>";
+        elem.innerHTML = "<div class='card'></div><span class='cardno'></span></div>";
         var img = getCardImage(num);
 		div.style.width=img.style.width;		/*Prevent Overflow of border*/
 		div.style.height=img.style.height;		/*Prevent Overflow of border*/

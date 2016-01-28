@@ -19,6 +19,11 @@
 	}
 	textarea{
 		width:100%;
+		background-color:#ffffff;
+	}
+	#turn-container{
+		top:80%;
+		z-index:999;
 	}
     .useroptions {
         display : inline-block;
@@ -62,11 +67,15 @@
 	<div class="five wide column">
 		<div class="ui facebook button" onclick="shareURL('facebook')">
 			<i class="facebook icon"></i>
-				Share on Facebook
+				Share
 		</div>
 		<div class="ui twitter button" onclick="shareURL('twitter')">
 			<i class="twitter icon"></i>
-				Tweet on Twitter
+				Tweet
+		</div>
+		<div class="ui button" onclick="shareURL('github')">
+			<i class="github icon"></i>
+			Fork <i class="fork icon"></i>
 		</div>
 	</div>
  </div>
@@ -74,49 +83,51 @@
 </table>
 <br>
 
-<div id='cards row'>
-	<div class="ui fluid four cards" id='cards-container'>
+<div id='cards two row'>
+	<div class="ui centered fluid four cards" id='cards-container'>
     <div class="card" ></div>
     </div>
 </div>
 </br>
 
-<div class="row">
-<table id='turn-container'><tr>
-    <td><div class="ui teal button show" onclick="sendShowCards()">pick/show</div></td>
-    <td><div class="ui input"><input type='text' placeholder="value" id='currTabNo'/></div></td>
-    <td><div class="ui teal button place" onclick="sendPlaceCards()">place</div></td>
-    <td><div class="ui teal button pass" onclick="sendPass()">pass</td>
-    <td><div id='currTabNoImg' style='width:100px;height:100px;'></div></td>
-    <td>Number of cards on table <span id="numOfCards"></span></td>
-</tr></table>
-</div>
-</div>
+
 
 <div class="row">
 <div class="ui label"> place cards for sending here (click on card to add/remove from here)</div> 
-<div class="ui four cards" id='current-table' >
+<div class="ui centered four cards" id='current-table' >
   
 </div>
  
 </div>
 <br>
 <br>
+
+<div class="row">
+<table id='turn-container' class="ui inverted teal celled striped table"><tr>
+    <td><div class="ui inverted basic teal button show" onclick="sendShowCards()">pick/show</div></td>
+    <td><div class="ui input"><input type='text' placeholder="value" id='currTabNo'/></div></td>
+    <td><div class="ui inverted basic teal button place" onclick="sendPlaceCards()">place</div></td>
+    <td><div class="ui inverted basic teal button pass" onclick="sendPass()">pass</td>
+    <td><div id='currTabNoImg'></div></td>
+    <td>Number of cards on table <span id="numOfCards"></span></td>
+</tr></table>
+</div>
+</div>
+<br>
+<br>
 <div class="ui segment">
 	<div class="ui top attached label">Log Messages</div>
-	<textarea id='events' rows="50" cols="50"></textarea>
+	<textarea id='events' rows="50" cols="50" disabled></textarea>
 </div>
 
 <div class="ui modal">
-  <div class="header">Welcome!..</div>
-   <div class="center segment content">
-    <p id="facebook_status_text">Checking Facebook Login <i class="notched circle loading icon"></i></p>
+  <div class="header">Welcome to the bluff game !..</div>
+   <div class="content">
+    <p id="facebook_status_text">Please wait while we check your login!....  <i class="notched circle loading icon"></i></p>
     <p class="ui center">
-	
 		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 		</fb:login-button>
 	</p>
-    <p></p>
   </div>
 </div>
 
@@ -134,6 +145,9 @@
 <script type="text/javascript" src="clientUtil/networkAndDom.js"></script>
 <script type="text/javascript" src="index.js"></script>
 <style type="text/css">
+    .cardno {
+        color:black;
+    }
     #players {
         border-collapse : separate;
         width : 100%
@@ -146,7 +160,6 @@
         padding-top: 3px;
         padding-bottom: 0px;
         background-color: yellow;
-        color: yellow;
     }
     .own-player{
         background-color: white;
@@ -167,12 +180,14 @@
         border: 2px double yellow;
     }
     #current-table {
-        background-color : #00b5ad
+        width: 71%;
+        height: 13em;
+        border-radius: 500px;
+        background-color: brown;
+        clear: both;
+        margin-left : 120px;
     }
 </style>
-<a href="https://github.com/sktguha/bluff" target="_blank"><img style="position: absolute; bottom: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/8b6b8ccc6da3aa5722903da7b58eb5ab1081adee/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png"></a>
 <div class="fb-comments" data-href="http://bluff.herokuapp.com" data-numposts="5"></div>
-
-
 </body>
     

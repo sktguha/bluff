@@ -12,6 +12,10 @@ function shareURL(site){
             break;
         case "twitter":
             URL = "http://twitter.com/intent/tweet?text=Play%20bluff%20online!..&url=https://bluff.herokuapp.com/"
+			break;
+		case "github":
+			URL = "https://github.com/sktguha/bluff";
+			break;
     }
     window.open(URL ,"Share", "width=600, height=600");
 }
@@ -35,7 +39,7 @@ function statusChangeCallback(response) {
         testAPI();
     } else if (response.status === 'not_authorized') {
 
-        showUpdate("Please allow access");
+        showUpdate("Please allow access to the app");
 
     } else {
 
@@ -61,9 +65,9 @@ function checkLoginState() {
 function testAPI() {
     FB.api('/me', function(response) {
         $('.ui.modal').modal('hide');
-        $('#user').text(response.name);
+        $('#user').text(response.name)
         setCookie('user', response.name);
-        showUpdate('Logged in as '+response.name+' ','success');
+        showUpdate('Welcome '+response.name+' !','success');
         poll();
     });
 }

@@ -19,7 +19,7 @@ addEvent : function(e, ts){
                 res = st.split("=")[1]; 
             }
         });
-        return res;
+        return decodeURIComponent(res);
     },
     serveFile: function (request,response){
     var filePath = '.' + request.url;
