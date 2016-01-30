@@ -29,12 +29,12 @@ http.createServer( function(req, res) {
     console.log(req.url);
     var name = decodeURIComponent(Util.getParam('name', req)); //the players id
     var type = Util.getParam('type', req);
-
-    if(req.url.indexOf("?") === -1){
+    if(typeof type === 'undefined'){        //if requested from anyone else as fb etc
+        serveFile({ url : '/'}, res);
+    }  else if(req.url.indexOf("?") === -1){
+        console.log('came here');
         serveFile(req, res);
-    } else if(!type){        //if requested from anyone else as fb etc
-        serveFile({ url : '/index.html'}, res);
-    } else {
+    }  else {
         if(won){
             res.end(JSON.stringify({
                 'won' : won

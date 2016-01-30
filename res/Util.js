@@ -1,7 +1,7 @@
 var http = require("http");
 var fs = require('fs');
 var path = require('path');
-
+var URL = require('url');
 module.exports = {
 addEvent : function(e, ts){
     events = read('1452955861853event')  || [] ;
@@ -20,7 +20,7 @@ addEvent : function(e, ts){
                 res = st.split("=")[1]; 
             }
         });
-        return decodeURIComponent(res);
+        return URL.parse(req.url,true).name;
         } catch (e){
             return false;
         }
