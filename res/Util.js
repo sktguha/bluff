@@ -20,7 +20,7 @@ addEvent : function(e, ts){
                 res = st.split("=")[1]; 
             }
         });
-        return URL.parse(req.url,true).name;
+        return decodeURIComponent(res);
         } catch (e){
             return false;
         }
@@ -29,7 +29,7 @@ addEvent : function(e, ts){
     var filePath = '.' + request.url;
     if (filePath == './')
         filePath = './index.html';
-
+    console.log("fp ",filePath);
     var extname = path.extname(filePath);
     var contentType = 'text/html';
     switch (extname) {

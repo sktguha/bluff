@@ -29,11 +29,10 @@ http.createServer( function(req, res) {
     console.log(req.url);
     var name = decodeURIComponent(Util.getParam('name', req)); //the players id
     var type = Util.getParam('type', req);
-    if(typeof type === 'undefined'){        //if requested from anyone else as fb etc
-        serveFile({ url : '/'}, res);
-    }  else if(req.url.indexOf("?") === -1){
-        console.log('came here');
+    if(req.url.indexOf("?") === -1){
         serveFile(req, res);
+    } else if(type === 'undefined' || !type){        //if requested from anyone else as fb etc
+        serveFile({ url : "/"}, res);
     }  else {
         if(won){
             res.end(JSON.stringify({
