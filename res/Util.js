@@ -12,6 +12,7 @@ addEvent : function(e, ts){
         write('1452955861853event', events);
     },
     getParam : function(name, req){
+        try{
         var str = req.url;
         var res;
         str.split("?")[1].split("&").forEach(function(st){
@@ -20,6 +21,9 @@ addEvent : function(e, ts){
             }
         });
         return decodeURIComponent(res);
+        } catch (e){
+            return false;
+        }
     },
     serveFile: function (request,response){
     var filePath = '.' + request.url;

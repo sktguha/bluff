@@ -27,11 +27,14 @@ function startNewTimer(){
 startNewTimer();
 http.createServer( function(req, res) {
     console.log(req.url);
+    var name = decodeURIComponent(Util.getParam('name', req)); //the players id
+    var type = Util.getParam('type', req);
+
     if(req.url.indexOf("?") === -1){
         serveFile(req, res);
+    } else if(!type){        //if requested from anyone else as fb etc
+        serveFile({ url : '/index.html'}, res);
     } else {
-        var name = decodeURIComponent(Util.getParam('name', req)); //the players id
-        var type = Util.getParam('type', req);
         if(won){
             res.end(JSON.stringify({
                 'won' : won
@@ -176,7 +179,7 @@ http.createServer( function(req, res) {
             lock.push(name);
             setCurrentPlayer(getNext(name, true));
             startNewTimer();
-            res.end('success');
+            res.end(JSON.stringify('success'));
         } else if(type === "kick"){
              var playerToKick = Util.getParam('playerToKick', req);
             kickPlayer(playerToKick, name);
@@ -186,8 +189,8 @@ http.createServer( function(req, res) {
             res.end("success");
         }
     }
-}).listen(process.env.PORT || 7000);
-console.log('server started on '+process.env.PORT || 7000);
+}).listen(process.env.PORT || 8000);
+console.log('server started on '+ process.env.PORT || 8000);
 function setCurrentPlayer(name){
     console.log('current player set as '+name);
 	addEvent('current player set as '+name);

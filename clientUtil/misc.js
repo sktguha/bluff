@@ -26,6 +26,10 @@ function getCardImage(i, dim){
 }
 
 function updateStatus(msg){
+    var list = ["current player"];
+    if(msg.text.indexOf(list[0]) === -1){
+        showUpdate(msg.text);
+    }
     var status = $('#events')[0];
     var st = new Date().toString();//new Date(msg.ts).getUTCSeconds() + ":"+new Date(msg.ts).getUTCMinutes() + ":" + new Date(msg.ts).getUTCHours();
     st += "\n" + msg.text;

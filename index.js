@@ -5,7 +5,7 @@ var cards = [], ctab = [];
 //    alert('some error occured. please report to admin ' + e.toString());
 //};
 
-var shown = false, timeout = 500, currTabNo,lastTs = 0;
+var shown = false, timeout = 500, currTabNo,lastTs = Date.now();
 
 function sendPass(){
     if(ctab.length){
@@ -26,7 +26,7 @@ function sendPass(){
 function sendPlaceCards(cards){
     cards = cards || ctab;
     if(!cards.length){
-        showUpdate('please place some cards on the table else press pass if you want to pass');
+        showUpdate('please place some cards on the table else press pass if you want to pass', 'error');
         $('.card').children('img').twinkle();
         setTimeout(function(){
             $('#current-table').twinkle();
@@ -34,9 +34,11 @@ function sendPlaceCards(cards){
         return;
     }
     var tempCurrTabNo = $('#currTabNo')[0].value;
-
+    var cardMap = {'a' : 1 , 'j' : 11, 'q' : 12 , 'k' : 13};
+    tempCurrTabNo = tempCurrTabNo.trim && tempCurrTabNo.trim();
+    tempCurrTabNo = cardMap[tempCurrTabNo.toLowerCase && tempCurrTabNo.toLowerCase()] || tempCurrTabNo;
     if(!currTabNo && (!Number(tempCurrTabNo) || tempCurrTabNo > 13 || tempCurrTabNo < 1)){
-         showUpdate("put number in the input box you want to place cards as (1,11,12,13 for A,J,Q,K respectively)");
+         showUpdate("put number in the input box you want to place cards as(2 to 10 or a,j,q,k)");
          tempCurrTabNo = $('#currTabNo')[0].value;
          $('#currTabNo').twinkle();
         return;
@@ -84,7 +86,9 @@ function onPollResponse(data){
         showUpdate(data.won + ' has won. press ok to reload page',"success");
         location.reload();
     }
+    var playerdata;
     updatePlayers(data.playerdata, data.currPlayer, data.prevPlayer);
+    playerData = data.playerdata;
     //if(getUser() === data.currPlayer){
      //   $('#turn-container :input').prop('disabled', false);
    // } else {
