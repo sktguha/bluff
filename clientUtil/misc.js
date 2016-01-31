@@ -34,7 +34,15 @@ function updateStatus(msg){
         var arr = msg.text.split("-");
         var sender = arr[0].trim();
         var message = arr[1].trim();
+        //on chat get or recieve
         $("#chat_div").chatbox("option", "boxManager").addMsg(sender , message);
+        try {
+            new Howl({
+                urls: ['clientUtil/woosh.wav']
+            }).play();
+        } catch(e){
+            console.error(e);
+        }
     }
     var status = $('#events')[0];
     var st = new Date().toString();//new Date(msg.ts).getUTCSeconds() + ":"+new Date(msg.ts).getUTCMinutes() + ":" + new Date(msg.ts).getUTCHours();
