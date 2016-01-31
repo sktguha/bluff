@@ -27,10 +27,11 @@ function shareURL(site){
     window.open(URL ,"Share", "width=600, height=600");
 }
 <!-------------------Facebook Plugin-------------->
-
+// the app id will be different for production and staging. during merging conflicts don't mixup app ids
+//staging one is 454778531382842 and prod one is 997555423639409
 window.fbAsyncInit = function() {
     FB.init({
-        appId      : '997555423639409',
+        appId      : '454778531382842',
         xfbml      : true,
         version    : 'v2.5'
     });
