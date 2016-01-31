@@ -60,7 +60,7 @@ function _updateCardDom(carddata, myCards){
 }
 
 function updatePlayers(pData, curr, prev){
-    var template = "<span class='name'></span>&nbsp;&nbsp;&nbsp;<span class='noc'></span>&nbsp;cards &nbsp;&nbsp;&nbsp;<input type='button' class = 'kick' value='kick'/>";
+    var template = "<span class='name'></span>&nbsp;&nbsp;<span class='noc'></span>&nbsp;cards &nbsp;&nbsp;&nbsp;<input type='button' class = 'kick' value='kick'/>";
     $('#players').empty();
     for(var name in pData){
         var pe = document.createElement("td");
