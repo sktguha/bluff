@@ -1,4 +1,8 @@
 See it in action https://bluff.herokuapp.com/
+for staging/pre prod version https://bluff-staging.herokuapp.com/ (warning : things may break here). Also fb login is not wroking. so need to add username cookie as document.cookie = 'user=example_name'
+Things currently in staging : better chat support, show major events as notifications on bottom right
+
+
 To run
 npm install
 node server
