@@ -1,5 +1,6 @@
 See it in action https://bluff.herokuapp.com/ , deployed from the branch 'deploy'
-for staging/pre prod version https://bluff-staging.herokuapp.com/ , deployed from the branch 'staging'(warning : things may break here). different fb app will be used for staging
+for staging/pre prod version https://bluff-staging.herokuapp.com/ , deployed from the branch 'staging'(warning : things may break here).
+different fb app will be used for staging
 Things currently in staging : better chat support, show major events as notifications on bottom right
 
 
