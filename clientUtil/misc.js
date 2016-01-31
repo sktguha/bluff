@@ -4,8 +4,8 @@ function logout(){
     window.FB.logout();
     location.reload();
 }
-function sendChat(){
-    var ct = $('#chat-content').val();
+function sendChat(ct){
+    ct = ct || $('#chat-content').val();
     $.ajax({
          url : '/?type=chat&content='+ct+'&name='+getUser(),
         success :  function(){
@@ -26,9 +26,15 @@ function getCardImage(i, dim){
 }
 
 function updateStatus(msg){
-    var list = ["current player"];
-    if(msg.text.indexOf(list[0]) === -1){
+    var list = ["current player", "-"];
+    if(msg.text.indexOf(list[0]) === -1 && msg.text.indexOf(list[1]) === -1){
         showUpdate(msg.text);
+    }
+    if(msg.text.indexOf("-")!== -1){
+        var arr = msg.text.split("-");
+        var sender = arr[0].trim();
+        var message = arr[1].trim();
+        $("#chat_div").chatbox("option", "boxManager").addMsg(sender , message);
     }
     var status = $('#events')[0];
     var st = new Date().toString();//new Date(msg.ts).getUTCSeconds() + ":"+new Date(msg.ts).getUTCMinutes() + ":" + new Date(msg.ts).getUTCHours();
@@ -101,7 +107,7 @@ Messenger.options = {
 function showUpdate( msg, msg_type){
 
 		if (typeof(msg_type)==='undefined') msg_type = "info"; /*if no message type is passed , default it to info*/
-		
+
 		Messenger().post({
 		message:msg,
 		type:msg_type,

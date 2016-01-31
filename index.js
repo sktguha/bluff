@@ -87,6 +87,10 @@ function onPollResponse(data){
         location.reload();
     }
     var playerdata;
+    $('#nop').text(Object.keys(data.playerdata).length+ " players playing");
+    if(data.currPlayer === getUser()){
+        $('#nop').text('Your Turn');
+    }
     updatePlayers(data.playerdata, data.currPlayer, data.prevPlayer);
     playerData = data.playerdata;
     //if(getUser() === data.currPlayer){
@@ -146,6 +150,20 @@ function updateCards(cardsInHand, cardsOnTable){
     _setupListeners();
 }
 updateCards = _.throttle(updateCards, 500);
+$(document).ready(function(){
+    $("#chat_div").chatbox({id : "chat_div",
+        title : "Chat!",
+        user : getUser(),
+        offset: 1,
+        width : '10%',
+
+        messageSent: function(id, user, msg){
+            //this.boxManager.addMsg(user.first_name, msg);
+            sendChat(msg);
+        }});
+    $('#chat_div').css('height' , '200px');
+});
+// to insert a message
 /*
  var ctab = [];
  socket.on('kick player', function(msg){

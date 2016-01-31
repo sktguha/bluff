@@ -6,10 +6,12 @@
     <link rel="stylesheet" type="text/css" href="res/css/semantic.min.css"/>
 	<link rel="stylesheet" type="text/css" href="res/css/messenger.css"/>
 	<link rel="stylesheet" type="text/css" href="res/css/messenger-theme-future.css"/>
-	
-	<script src="jquery-1.11.1.js"></script>
-	<script src="jquery.twinkle-0.8.0.min.js"></script>
-	
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="clientUtil/jquery.ui.chatbox.css" />
+    <script src="jquery-1.11.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript"  src="clientUtil/jquery.ui.chatbox.js" ></script>
+    <script src="jquery.twinkle-0.8.0.min.js"></script>
 	<script src="res/js/semantic.min.js"></script>
 	<script src="res/js/messenger.min.js"></script>
 	<style type="text/css">
@@ -56,13 +58,7 @@
 <br>
 <div class="ui grid">
 	<div class="eleven wide column">
-		<form onsubmit="sendChat(); return false;" autocomplete="off">
-			<div class="ui action left icon input">
-				<i class="mail outline icon"></i>
-				<input type="text" placeholder="Send Message" id='chat-content'/>
-				<div class="ui submit teal button" type="submit" onclick="sendChat()">send chat message</div>
-			</div>
-		</form>
+		<div class="ui submit teal button" type="submit" onclick="sendChat()"><span id='nop'></span></div>
 	</div>
 	<div class="five wide column">
 		<div class="ui facebook button" onclick="shareURL('facebook')">
@@ -79,6 +75,7 @@
 		</div>
 	</div>
  </div>
+<br>
 <table id='players'>
 </table>
 <br>
@@ -103,16 +100,16 @@
 <br>
 
 <div class="row">
-<table id='turn-container' class="ui inverted teal celled striped table"><tr>
+<table id='turn-container' style="width:80%" class="ui inverted teal celled striped table"><tr>
     <td><div class="ui inverted basic teal button show" onclick="sendShowCards()">pick/show</div></td>
     <td><div class="ui input"><input type='text' placeholder="value" id='currTabNo'/></div></td>
     <td><div class="ui inverted basic teal button place" onclick="sendPlaceCards()">place</div></td>
     <td><div class="ui inverted basic teal button pass" onclick="sendPass()">pass</td>
     <td><div id='currTabNoImg'></div></td>
-    <td>Number of cards on table <span id="numOfCards"></span></td>
+    <td><span id="numOfCards"></span> cards on table </td>
 </tr></table>
 </div>
-</div>
+<div id="chat_div"></div>
 <br>
 <br>
 <div class="ui segment">
