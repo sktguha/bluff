@@ -150,7 +150,8 @@ function updateCards(cardsInHand, cardsOnTable){
     _setupListeners();
 }
 updateCards = _.throttle(updateCards, 500);
-$(document).ready(function(){
+function initChat(){
+    try{
     $("#chat_div").chatbox({id : "chat_div",
         title : "Chat!",
         user : getUser(),
@@ -162,6 +163,13 @@ $(document).ready(function(){
             sendChat(msg);
         }});
     $('#chat_div').css('height' , '200px');
+    } catch(e){
+       console.error(e , "retrying initchat again");
+       setTimeout(initChat, 5000);
+    }
+}
+$(document).ready(function(){
+    initChat();
 });
 // to insert a message
 /*

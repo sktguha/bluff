@@ -70,7 +70,19 @@ function getCookie(cname) {
     return "";
 }
 function onError(e){
-    showUpdate("lost connection with server","error");
+    Messenger().post({
+        message:'lost connection with server',
+        type:'error',
+        showCloseButton: false,
+        actions: {
+            cancel: {
+                label: 'reload page',
+                action: function() {
+                    location.reload();
+                }
+            }
+        }
+    });
 }
 onError = _.throttle(onError, 1000);
 function setCookie(cname, cvalue){
@@ -107,8 +119,8 @@ polyfills();
 
 /*Default Options for Messenger UI. See http://github.hubspot.com/messenger/docs/welcome/ for more info*/
 Messenger.options = {
-    extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
-	theme:'future'
+    extraClasses: 'messenger-fixed messenger-on-left messenger-on-top',
+    theme: 'future'
 }
 
 /*Updates the messenger UI*/
