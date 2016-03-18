@@ -6,6 +6,7 @@ var cards = [], ctab = [];
 //};
 
 var shown = false, timeout = 500, currTabNo,lastTs = Date.now();
+function init(){
 function doRoomShimForAjax(){
 	var old = $.ajax;
 	$.ajax = function(obj){
@@ -14,6 +15,12 @@ function doRoomShimForAjax(){
 	}
 }
 doRoomShimForAjax();
+ if(!localStorage['room']){
+	 showUpdate('No room found. You will be redirected to the main page', 'error');
+	 location.href = location.protocol + "//" + location.host;             l
+ }
+}
+init();
 function sendPass(){
     if(ctab.length){
         if(!window.confirm('you have cards placed for sending. sure you want to pass ? ')){
