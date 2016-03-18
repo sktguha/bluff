@@ -1,6 +1,10 @@
 <head>
     <script src="clientUtil/jquery-1.10.1.min.js"></script>
     <script src="clientUtil/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="res/css/semantic.min.css"/>
+    <script src="res/js/semantic.min.js"></script>
+    <script src="res/js/annyang.min.js"></script>
+    
     <script>
         function checkRoomAndRedirect(){
             var name = $('#room-name').val();
@@ -12,19 +16,54 @@
                         localStorage['room'] = name;
                         location.href = "/roomClient.html";
                     }  else {
-                        alert('oops room already taken. please try with a different name');
+                        $('.ui.modal').modal('show');
                     }
                 }
             });
         }
     </script>
-
+<script>
+if(annyang){
+    var commands = { "hi":function(){
+        alert('hi to you too');
+    }};
+}
+annyang.addCommands(commands);
+annyang.start();
+</script>
 
 </head>
 <body>
-Hey you need to either create a room
-<input type="text" id='room-name'/>
-<button onclick = "checkRoomAndRedirect()"></button>
-        <br>or join a room
 
+<div class="row">
+<div class="ui segment">
+<center><h2>Welcome to Bluff</h2></center>
+</div>
+</div><br><br>
+<div class="ui four column grid">
+<div class="six wide column">
+</div>
+<div class="ui blue segment">
+
+<div class="ui labeled input">
+  <span class="ui label">
+    Room Name: 
+  </span>
+  <input type="text" placeholder="Create/Join a Room" id='room-name'>
+</div><br><br><br>
+<center><div class="ui submit teal button" onclick = "checkRoomAndRedirect()">Create/Join</div></center>
+
+</div>
+</div>
+
+
+<div class="ui modal">
+  <div class="header">Alert</div>
+  <div class="content">
+    <p>oops Emptry Room name or Room name already taken. please try with a different name!..</p>
+  </div>
+  <div class="actions">
+    <div class="ui approve button">Close</div>
+    </div>
+</div>
 </body>
