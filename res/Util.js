@@ -20,6 +20,7 @@ addEvent : function(e, ts){
                 res = st.split("=")[1]; 
             }
         });
+		if(res == "undefined") return false;
         return decodeURIComponent(res);
         } catch (e){
             return false;

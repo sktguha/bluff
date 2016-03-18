@@ -70,7 +70,12 @@ function getCookie(cname) {
     return "";
 }
 function onError(e){
-    Messenger().post({
+	if( e.responseText === "room not found"){
+		showUpdate('current room does not exist. You will be redirected to the main page', 'error');
+		location.href = location.protocol + "//" + location.host;
+		return;
+	}
+	Messenger().post({
         message:'lost connection with server',
         type:'error',
         showCloseButton: false,

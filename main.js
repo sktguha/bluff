@@ -12,7 +12,7 @@ var _ = require('underscore');
 http.createServer(function(req, res){
 	console.log(req.url);
 	var type = Util.getParam("type", req);
-	var roomname= Util.getParam('checkroom', req);
+	var checkRoomName= Util.getParam('checkroom', req);
 	if(req.url == "/"){
 		Util.serveFileDirect("/main.html", res);
 		return;
@@ -21,19 +21,26 @@ http.createServer(function(req, res){
 		Util.serveFile(req, res);
 		return;
 	}
-	//yay rooms name availalble
-	if (roomname){
-		if(rooms.indexOf(roomname) === -1){
-				addRoom(roomname);
+	if (checkRoomName && checkRoomName !== 'undefined'){
+		//yay rooms name availalble
+		if(rooms.indexOf(checkRoomName) === -1){
+				addRoom(checkRoomName);
 				res.end('available');
 			} else {
 				res.end('not-available');
 			}
-		var roomName = Util.getParam('roomName', req);
-		if(roomName && roomName !== "undefined"){
-			roomMap[roomName](req, res);
-		}
 		return;
+	}
+	var roomName = Util.getParam('room', req);
+	// main routing logic done
+	if(roomName && roomName !== "undefined"){
+		if(roomMap[roomName]){
+			roomMap[roomName](req, res);
+		}  else {
+			//return an error
+			res.writeHead(404);
+			res.end('room not found');
+		}
 	}
 	if(type === 'undefined' || !type){        //if requested from anyone else as fb etc and also no roomname
 		Util.serveFile( "/main.html", res);
@@ -49,7 +56,7 @@ function addRoom(roomName){
 	//the listener function would be the http.createServer thing listener inside the function
 	var registerListener = function(listener){
 		roomMap[roomName] = listener;
-	} ;
+	};
 	room(registerListener, readPartial, writePartial);
 }
-
+
