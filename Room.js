@@ -1,7 +1,7 @@
 module.exports = function(){
 	return Room;
 };
-var Room  = function (registerListener, read, write){
+var Room  = function (registerListener, read, write, onPlayerAdd, onPlayerRemove){
 	console.log('init started');
 	var Util = require("./res/Util");
 	var http = require("http");
@@ -298,6 +298,7 @@ var Room  = function (registerListener, read, write){
 		del(player, "");
 		startNewRound(players[0], false, true);
 		addEvent(player + ' was kicked by ' + byName);
+		onPlayerRemove();
 		kickList.push(player);
 	}
 
@@ -336,6 +337,7 @@ var Room  = function (registerListener, read, write){
 		currPlayer = currPlayer || name;
 		players.push(name);
 		addEvent(name + ' joined from '+add);
+		onPlayerAdd();
 	}
 
 	function getCommonBroadcastData(resp){

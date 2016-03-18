@@ -1,7 +1,7 @@
 var http = require('http');
 // a map of functions to roooms
 var roomMap = {};
-var rooms = [];
+var rooms = {};
 var Room = require("./Room");
 var Util = require("./res/Util");
 var http = require("http");
@@ -23,7 +23,7 @@ http.createServer(function(req, res){
 	}
 	if (checkRoomName && checkRoomName !== 'undefined'){
 		//yay rooms name availalble
-		if(rooms.indexOf(checkRoomName) === -1){
+		if(Object.keys(rooms).indexOf(checkRoomName) === -1){
 				addRoom(checkRoomName);
 				res.end('available');
 			} else {
@@ -54,7 +54,7 @@ http.createServer(function(req, res){
 }).listen(process.env.PORT || 8000);
 
 function addRoom(roomName){
-	rooms.push(roomName);
+	rooms[roomName] = 0;
 	var room = new Room();
 	var readPartial = _.partial(read, roomName);
 	var writePartial = _.partial(write, roomName);
@@ -62,6 +62,10 @@ function addRoom(roomName){
 	var registerListener = function(listener){
 		roomMap[roomName] = listener;
 	};
-	room(registerListener, readPartial, writePartial);
+	room(registerListener, readPartial, writePartial, function(){
+		rooms[roomName] ++ ;
+	}, function(){
+		rooms[roomName] -- ;
+	});
 }
 

@@ -4,7 +4,11 @@
     <link rel="stylesheet" type="text/css" href="res/css/semantic.min.css"/>
     <script src="res/js/semantic.min.js"></script>
     <script src="res/js/annyang.min.js"></script>
-    
+    <style>
+        .rooms {
+            cursor : pointer
+        };
+    </style>
     <script>
         function checkRoomAndRedirect(){
             var name = $('#room-name').val();
@@ -27,13 +31,25 @@
         function populateRooms(table, data){
             //TODO : need to add how many players per room
            data = JSON.parse(data);
-            data.forEach(function(d){
+            //name = number of players
+            var ct = 0;
+            for(var roomname in data){
+                ct++;
+                var td0 = document.createElement("td");
+                $(td0).text(ct);
+                var td = document.createElement("td");
+                $(td).addClass("rooms");
+                $(td).text(roomname);
+                var td2 = document.createElement("td");
+                $(td2).text(data[roomname]);
                 var tr = document.createElement("tr");
-                $(tr).addClass("rooms");
-                $(tr).text(d);
+                $(tr).append(td0);
+                $(tr).append(td);
+                $(tr).append(td2);
                 $(table).append(tr);
-            });
-            $('#roomtable').on("click", function(e){
+            }
+            //do not apply on table. apply only on the individual td
+            $('.rooms').on("click", function(e){
                 var tr = e.srcElement || e.target;
                 visitRoom($(tr).text());
             });
@@ -72,10 +88,17 @@ annyang.start();
   <span class="ui label">
     Room Name: 
   </span>
-  <input type="text" placeholder="Create/Join a Room" id='room-name'>
-</div><br><br><br>
-<center><div class="ui submit teal button" onclick = "checkRoomAndRedirect()">Create/Join</div></center>
-<table id='roomtable'></table>
+  <input type="text" placeholder="Create a Room" id='room-name'>
+</div><br><br>
+<center>
+    <div class="ui submit teal button" onclick = "checkRoomAndRedirect()">Create Room</div>
+    <br><br><br>
+    <div class="ui submit teal button">Or Join a Room (click on room name to join)</div></center>
+</center>
+    <table class="ui compact celled definition table" id='roomtable'>
+        <thead><th>#</th><th>Room Name</th><th># players</th></thead>
+    </table>
+
 </div>
 </div>
 
