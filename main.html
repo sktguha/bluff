@@ -1,0 +1,30 @@
+<head>
+    <script src="clientUtil/jquery-1.10.1.min.js"></script>
+    <script src="clientUtil/jquery-ui.min.js"></script>
+    <script>
+        function checkRoomAndRedirect(){
+            var name = $('#room-name').val();
+            $.ajax({
+                url : '/?checkroom='+name,
+                success : function(result){
+                    if(result === "available"){
+                        //document.cookie = "roomName="+name;
+                        localStorage['room'] = name;
+                        location.href = "/roomClient.html";
+                    }  else {
+                        alert('oops room already taken. please try with a different name');
+                    }
+                }
+            });
+        }
+    </script>
+
+
+</head>
+<body>
+Hey you need to either create a room
+<input type="text" id='room-name'/>
+<button onclick = "checkRoomAndRedirect()"></button>
+        <br>or join a room
+
+</body>

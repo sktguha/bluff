@@ -25,6 +25,17 @@ addEvent : function(e, ts){
             return false;
         }
     },
+	getCookies : function(req){
+	 	var list = {}, rc = req.headers.cookie;
+		rc && rc.split(";").forEach(function(cookie){
+			var parts = cookie.split('=');
+			list[parts.shift.trim()] = decodeURI(parts.join('='));
+		});
+		return list;
+	},
+	serveFileDirect : function(path, response){
+		this.serveFile({ url : path}, response);
+	},
     serveFile: function (request,response){
     var filePath = '.' + request.url;
     if (filePath == './')
@@ -76,8 +87,9 @@ addEvent : function(e, ts){
 
     },
     _storage : {},
-    read : function(name){
-        return this._storage[name];
+    read : function(roomName, name){
+        this._storage[roomName] = this._storage[roomName] || {};
+		return this._storage[roomName][name];
         var val;
         try{
            val = fs.readFileSync("storage/"+name+".txt");
@@ -87,8 +99,9 @@ addEvent : function(e, ts){
         }
         return val;
     },
-    write : function(name, value){
-        this._storage[name] = value;
+    write : function(roomName, name, value){
+		this._storage[roomName] = this._storage[roomName] || {};
+		this._storage[roomName][name] = value;
         return;
         fs.writeFileSync("storage/"+ name+".txt", JSON.stringify(value));
     },

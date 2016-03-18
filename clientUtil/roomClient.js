@@ -6,7 +6,14 @@ var cards = [], ctab = [];
 //};
 
 var shown = false, timeout = 500, currTabNo,lastTs = Date.now();
-
+function doRoomShimForAjax(){
+	var old = $.ajax;
+	$.ajax = function(obj){
+		obj.url += "&room="+localStorage['room'];
+		old.call($, obj);
+	}
+}
+doRoomShimForAjax();
 function sendPass(){
     if(ctab.length){
         if(!window.confirm('you have cards placed for sending. sure you want to pass ? ')){
