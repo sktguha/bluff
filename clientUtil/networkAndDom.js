@@ -56,6 +56,14 @@ function _updateCardDom(carddata, myCards){
         $(elem).data('no',num);
         div.appendChild(elem);
         myCards.appendChild(div);
+        if($(myCards).attr('id') == "current-table"){
+        $(elem).parent().hide().transition({
+                animation : 'fade',
+                duration  : 800,
+                interval  : 200,
+                queue:false
+  });
+    }
     });
 }
 
