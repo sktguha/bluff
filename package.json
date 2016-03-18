@@ -17,7 +17,8 @@
     "game"
   ],
   "scripts": {
-    "test": "echo 'no test for now'"
+    "test": "echo 'no test for now'",
+      "start" : "node main"
   },
   "author": "saikat guha",
   "license": "GNU",
