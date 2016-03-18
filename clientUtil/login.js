@@ -31,7 +31,7 @@ function shareURL(site){
 //staging one is 454778531382842 and prod one is 997555423639409
 window.fbAsyncInit = function() {
     FB.init({
-        appId      : '454778531382842',
+        appId      : '997555423639409',
         xfbml      : true,
         version    : 'v2.5'
     });
