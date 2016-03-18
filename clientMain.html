@@ -13,14 +13,37 @@
                 success : function(result){
                     if(result === "available"){
                         //document.cookie = "roomName="+name;
-                        localStorage['room'] = name;
-                        location.href = "/roomClient.html";
+                        visitRoom(name);
                     }  else {
                         $('.ui.modal').modal('show');
                     }
                 }
             });
         }
+        function visitRoom(name){
+            localStorage['room'] = name;
+            location.href = "/roomClient.html";
+        }
+        function populateRooms(table, data){
+            //TODO : need to add how many players per room
+           data = JSON.parse(data);
+            data.forEach(function(d){
+                var tr = document.createElement("tr");
+                $(tr).addClass("rooms");
+                $(tr).text(d);
+                $(table).append(tr);
+            });
+            $('#roomtable').on("click", function(e){
+                var tr = e.srcElement || e.target;
+                visitRoom($(tr).text());
+            });
+        }
+        $.ajax({
+            url : '/?roomdata=true',
+            success : function(data){
+                populateRooms($('#roomtable')[0],data);
+            }
+        });
     </script>
 <script>
 if(annyang){
@@ -52,7 +75,7 @@ annyang.start();
   <input type="text" placeholder="Create/Join a Room" id='room-name'>
 </div><br><br><br>
 <center><div class="ui submit teal button" onclick = "checkRoomAndRedirect()">Create/Join</div></center>
-
+<table id='roomtable'></table>
 </div>
 </div>
 
@@ -60,7 +83,7 @@ annyang.start();
 <div class="ui modal">
   <div class="header">Alert</div>
   <div class="content">
-    <p>oops Emptry Room name or Room name already taken. please try with a different name!..</p>
+    <p>oops Empty Room name or Room name already taken. please try with a different name!..</p>
   </div>
   <div class="actions">
     <div class="ui approve button">Close</div>

@@ -14,7 +14,7 @@ http.createServer(function(req, res){
 	var type = Util.getParam("type", req);
 	var checkRoomName= Util.getParam('checkroom', req);
 	if(req.url == "/"){
-		Util.serveFileDirect("/main.html", res);
+		Util.serveFileDirect("/clientMain.html", res);
 		return;
 	}
 	if(req.url.indexOf("?") === -1){
@@ -31,6 +31,11 @@ http.createServer(function(req, res){
 			}
 		return;
 	}
+	var roomdata = Util.getParam('roomdata', req);
+	if(roomdata && roomdata !== "undefined"){
+		res.end(JSON.stringify(rooms));
+		return;
+	}
 	var roomName = Util.getParam('room', req);
 	// main routing logic done
 	if(roomName && roomName !== "undefined"){
@@ -43,7 +48,7 @@ http.createServer(function(req, res){
 		}
 	}
 	if(type === 'undefined' || !type){        //if requested from anyone else as fb etc and also no roomname
-		Util.serveFile( "/main.html", res);
+		Util.serveFile( "/clientMain.html", res);
 		return;
 	}
 }).listen(process.env.PORT || 8000);
