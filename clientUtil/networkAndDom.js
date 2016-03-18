@@ -46,7 +46,7 @@ function _updateCardDom(carddata, myCards){
         div.className = 'ui card card-container';
         $(div).css('text-align', 'center');
         var elem = document.createElement("div");
-        elem.innerHTML = "<div class='card'></div><span class='cardno'></span></div>";
+        elem.innerHTML = "<div class='card'></div><a class='ui right corner label cardno'></a></div>";
         var img = getCardImage(num);
 		div.style.width=img.style.width;		/*Prevent Overflow of border*/
 		div.style.height=img.style.height;		/*Prevent Overflow of border*/
@@ -60,15 +60,16 @@ function _updateCardDom(carddata, myCards){
 }
 
 function updatePlayers(pData, curr, prev){
-    var template = "<span class='name'></span>&nbsp;&nbsp;<span class='noc'></span>&nbsp;cards &nbsp;&nbsp;&nbsp;<input type='button' class = 'kick' value='kick'/>";
+    var template = "<div class='ui purple tag label'><span class='name'></span><span class='noc'></span>&nbsp;cards &nbsp;&nbsp;&nbsp;<i class='delete icon kick'></i></div>";
     $('#players').empty();
     for(var name in pData){
         var pe = document.createElement("td");
-        pe.className = 'playerContainer';
+        //pe.className = 'playerContainer';
         $(pe).append(template);
         $('.name', pe).text(name+" ");
-		$(pe).attr('kick',name+" ");
+		$('.kick',pe).attr('kick',name+" ");
         $('.noc', pe).text(pData[name]);
+        /*
         if(name === getUser()){
             //pe.getElementsByClassName('name')[0].innerText = "you  ";
             $(pe).addClass('own-player');
@@ -79,10 +80,11 @@ function updatePlayers(pData, curr, prev){
         if(name === prev){
             $(pe).addClass('prev-player');
         }
+        */
         $('#players').append(pe);
     }
-    $('.kick').on('click', function(e){
-        var player = $(e.target.parentElement).attr('kick');
+    $('.kick',pe).on('click', function(e){
+        var player = $(e.target).attr('kick');
         player = player && player.trim();
         if(!player) return;
         if(!window.confirm('are you sure you want to kick the player ' + player)) return;
