@@ -1,0 +1,115 @@
+<head>
+    <script src="clientUtil/jquery-1.10.1.min.js"></script>
+    <script src="clientUtil/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="res/css/semantic.min.css"/>
+    <script src="res/js/semantic.min.js"></script>
+    <script src="res/js/annyang.min.js"></script>
+    <style>
+        .rooms {
+            cursor : pointer
+        };
+    </style>
+    <script>
+        function checkRoomAndRedirect(){
+            var name = $('#room-name').val();
+            $.ajax({
+                url : '/?checkroom='+name,
+                success : function(result){
+                    if(result === "available"){
+                        //document.cookie = "roomName="+name;
+                        visitRoom(name);
+                    }  else {
+                        $('.ui.modal').modal('show');
+                    }
+                }
+            });
+        }
+        function visitRoom(name){
+            localStorage['room'] = name;
+            location.href = "/roomClient.html";
+        }
+        function populateRooms(table, data){
+            //TODO : need to add how many players per room
+           data = JSON.parse(data);
+            //name = number of players
+            var ct = 0;
+            for(var roomname in data){
+                ct++;
+                var td0 = document.createElement("td");
+                $(td0).text(ct);
+                var td = document.createElement("td");
+                $(td).addClass("rooms");
+                $(td).text(roomname);
+                var td2 = document.createElement("td");
+                $(td2).text(data[roomname]);
+                var tr = document.createElement("tr");
+                $(tr).append(td0);
+                $(tr).append(td);
+                $(tr).append(td2);
+                $(table).append(tr);
+            }
+            //do not apply on table. apply only on the individual td
+            $('.rooms').on("click", function(e){
+                var tr = e.srcElement || e.target;
+                visitRoom($(tr).text());
+            });
+        }
+        $.ajax({
+            url : '/?roomdata=true',
+            success : function(data){
+                populateRooms($('#roomtable')[0],data);
+            }
+        });
+    </script>
+<script>
+if(annyang){
+    var commands = { "hi":function(){
+        alert('hi to you too');
+    }};
+}
+annyang.addCommands(commands);
+annyang.start();
+</script>
+
+</head>
+<body>
+
+<div class="row">
+<div class="ui segment">
+<center><h2>Welcome to Bluff</h2></center>
+</div>
+</div><br><br>
+<div class="ui four column grid">
+<div class="six wide column">
+</div>
+<div class="ui blue segment">
+
+<div class="ui labeled input">
+  <span class="ui label">
+    Room Name: 
+  </span>
+  <input type="text" placeholder="Create a Room" id='room-name'>
+</div><br><br>
+<center>
+    <div class="ui submit teal button" onclick = "checkRoomAndRedirect()">Create Room</div>
+    <br><br><br>
+    <div class="ui submit teal button">Or Join a Room (click on room name to join)</div></center>
+</center>
+    <table class="ui compact celled definition table" id='roomtable'>
+        <thead><th>#</th><th>Room Name</th><th># players</th></thead>
+    </table>
+
+</div>
+</div>
+
+
+<div class="ui modal">
+  <div class="header">Alert</div>
+  <div class="content">
+    <p>oops Empty Room name or Room name already taken. please try with a different name!..</p>
+  </div>
+  <div class="actions">
+    <div class="ui approve button">Close</div>
+    </div>
+</div>
+</body>

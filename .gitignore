@@ -50,3 +50,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 npm-debug.log
+*.iml
+bluff.iml
+notes2.txt

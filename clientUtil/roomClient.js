@@ -5,8 +5,22 @@ var cards = [], ctab = [];
 //    alert('some error occured. please report to admin ' + e.toString());
 //};
 
-var shown = false, timeout = 500, currTabNo,lastTs = 0;
-
+var shown = false, timeout = 500, currTabNo,lastTs = Date.now();
+function init(){
+function doRoomShimForAjax(){
+	var old = $.ajax;
+	$.ajax = function(obj){
+		obj.url += "&room="+localStorage['room'];
+		old.call($, obj);
+	}
+}
+doRoomShimForAjax();
+ if(!localStorage['room']){
+	 showUpdate('No room found. You will be redirected to the main page', 'error');
+	 location.href = location.protocol + "//" + location.host;             l
+ }
+}
+init();
 function sendPass(){
     if(ctab.length){
         if(!window.confirm('you have cards placed for sending. sure you want to pass ? ')){
@@ -26,7 +40,7 @@ function sendPass(){
 function sendPlaceCards(cards){
     cards = cards || ctab;
     if(!cards.length){
-        showUpdate('please place some cards on the table else press pass if you want to pass');
+        showUpdate('please place some cards on the table else press pass if you want to pass', 'error');
         $('.card').children('img').twinkle();
         setTimeout(function(){
             $('#current-table').twinkle();
@@ -34,9 +48,11 @@ function sendPlaceCards(cards){
         return;
     }
     var tempCurrTabNo = $('#currTabNo')[0].value;
-
+    var cardMap = {'a' : 1 , 'j' : 11, 'q' : 12 , 'k' : 13};
+    tempCurrTabNo = tempCurrTabNo.trim && tempCurrTabNo.trim();
+    tempCurrTabNo = cardMap[tempCurrTabNo.toLowerCase && tempCurrTabNo.toLowerCase()] || tempCurrTabNo;
     if(!currTabNo && (!Number(tempCurrTabNo) || tempCurrTabNo > 13 || tempCurrTabNo < 1)){
-         showUpdate("put number in the input box you want to place cards as (1,11,12,13 for A,J,Q,K respectively)");
+         showUpdate("put number in the input box you want to place cards as(2 to 10 or a,j,q,k)");
          tempCurrTabNo = $('#currTabNo')[0].value;
          $('#currTabNo').twinkle();
         return;
@@ -84,7 +100,13 @@ function onPollResponse(data){
         showUpdate(data.won + ' has won. press ok to reload page',"success");
         location.reload();
     }
+    var playerdata;
+    $('#nop').text(Object.keys(data.playerdata).length+ " players playing");
+    if(data.currPlayer === getUser()){
+        $('#nop').text('Your Turn');
+    }
     updatePlayers(data.playerdata, data.currPlayer, data.prevPlayer);
+    playerData = data.playerdata;
     //if(getUser() === data.currPlayer){
      //   $('#turn-container :input').prop('disabled', false);
    // } else {
@@ -142,6 +164,28 @@ function updateCards(cardsInHand, cardsOnTable){
     _setupListeners();
 }
 updateCards = _.throttle(updateCards, 500);
+function initChat(){
+    try{
+    $("#chat_div").chatbox({id : "chat_div",
+        title : "Chat!",
+        user : getUser(),
+        offset: 1,
+        width : '10%',
+
+        messageSent: function(id, user, msg){
+            //this.boxManager.addMsg(user.first_name, msg);
+            sendChat(msg);
+        }});
+    $('#chat_div').css('height' , '200px');
+    } catch(e){
+       console.error(e , "retrying initchat again");
+       setTimeout(initChat, 5000);
+    }
+}
+$(document).ready(function(){
+    initChat();
+});
+// to insert a message
 /*
  var ctab = [];
  socket.on('kick player', function(msg){

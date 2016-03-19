@@ -1,7 +1,7 @@
 var http = require("http");
 var fs = require('fs');
 var path = require('path');
-
+var URL = require('url');
 module.exports = {
 addEvent : function(e, ts){
     events = read('1452955861853event')  || [] ;
@@ -12,6 +12,7 @@ addEvent : function(e, ts){
         write('1452955861853event', events);
     },
     getParam : function(name, req){
+        try{
         var str = req.url;
         var res;
         str.split("?")[1].split("&").forEach(function(st){
@@ -19,13 +20,28 @@ addEvent : function(e, ts){
                 res = st.split("=")[1]; 
             }
         });
+		if(res == "undefined") return false;
         return decodeURIComponent(res);
+        } catch (e){
+            return false;
+        }
     },
+	getCookies : function(req){
+	 	var list = {}, rc = req.headers.cookie;
+		rc && rc.split(";").forEach(function(cookie){
+			var parts = cookie.split('=');
+			list[parts.shift.trim()] = decodeURI(parts.join('='));
+		});
+		return list;
+	},
+	serveFileDirect : function(path, response){
+		this.serveFile({ url : path}, response);
+	},
     serveFile: function (request,response){
     var filePath = '.' + request.url;
     if (filePath == './')
         filePath = './index.html';
-
+    console.log("fp ",filePath);
     var extname = path.extname(filePath);
     var contentType = 'text/html';
     switch (extname) {
@@ -72,8 +88,9 @@ addEvent : function(e, ts){
 
     },
     _storage : {},
-    read : function(name){
-        return this._storage[name];
+    read : function(roomName, name){
+        this._storage[roomName] = this._storage[roomName] || {};
+		return this._storage[roomName][name];
         var val;
         try{
            val = fs.readFileSync("storage/"+name+".txt");
@@ -83,8 +100,9 @@ addEvent : function(e, ts){
         }
         return val;
     },
-    write : function(name, value){
-        this._storage[name] = value;
+    write : function(roomName, name, value){
+		this._storage[roomName] = this._storage[roomName] || {};
+		this._storage[roomName][name] = value;
         return;
         fs.writeFileSync("storage/"+ name+".txt", JSON.stringify(value));
     },

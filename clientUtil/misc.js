@@ -4,8 +4,8 @@ function logout(){
     window.FB.logout();
     location.reload();
 }
-function sendChat(){
-    var ct = $('#chat-content').val();
+function sendChat(ct){
+    ct = ct || $('#chat-content').val();
     $.ajax({
          url : '/?type=chat&content='+ct+'&name='+getUser(),
         success :  function(){
@@ -26,6 +26,24 @@ function getCardImage(i, dim){
 }
 
 function updateStatus(msg){
+    var list = ["current player", "-"];
+    if(msg.text.indexOf(list[0]) === -1 && msg.text.indexOf(list[1]) === -1){
+        showUpdate(msg.text);
+    }
+    if(msg.text.indexOf("-")!== -1){
+        var arr = msg.text.split("-");
+        var sender = arr[0].trim();
+        var message = arr[1].trim();
+        //on chat get or recieve
+        $("#chat_div").chatbox("option", "boxManager").addMsg(sender , message);
+        try {
+            new Howl({
+                urls: ['clientUtil/woosh.wav']
+            }).play();
+        } catch(e){
+            console.error(e);
+        }
+    }
     var status = $('#events')[0];
     var st = new Date().toString();//new Date(msg.ts).getUTCSeconds() + ":"+new Date(msg.ts).getUTCMinutes() + ":" + new Date(msg.ts).getUTCHours();
     st += "\n" + msg.text;
@@ -52,7 +70,24 @@ function getCookie(cname) {
     return "";
 }
 function onError(e){
-    showUpdate("lost connection with server","error");
+	if( e.responseText === "room not found"){
+		showUpdate('current room does not exist. You will be redirected to the main page', 'error');
+		location.href = location.protocol + "//" + location.host;
+		return;
+	}
+	Messenger().post({
+        message:'lost connection with server',
+        type:'error',
+        showCloseButton: false,
+        actions: {
+            cancel: {
+                label: 'reload page',
+                action: function() {
+                    location.reload();
+                }
+            }
+        }
+    });
 }
 onError = _.throttle(onError, 1000);
 function setCookie(cname, cvalue){
@@ -89,15 +124,15 @@ polyfills();
 
 /*Default Options for Messenger UI. See http://github.hubspot.com/messenger/docs/welcome/ for more info*/
 Messenger.options = {
-    extraClasses: 'messenger-fixed messenger-on-bottom messenger-on-right',
-	theme:'future'
+    extraClasses: 'messenger-fixed messenger-on-left messenger-on-top',
+    theme: 'future'
 }
 
 /*Updates the messenger UI*/
 function showUpdate( msg, msg_type){
 
 		if (typeof(msg_type)==='undefined') msg_type = "info"; /*if no message type is passed , default it to info*/
-		
+
 		Messenger().post({
 		message:msg,
 		type:msg_type,

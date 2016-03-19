@@ -1,0 +1,14 @@
+- show alert if bluff caught also
+- change to string s a, j,q ,k from numbers
+- last card caught in bluff visible to all
+- you are starting this round more prominent
+- make flashing more prominent for current player
+- site is bit slow
+- bug with keshaw bhai. he passed after 2 players  kicked and started round(timed out) but still shown as prev player. need to call same function for timeout as in pass
+- subtle alert if 4 cards on a player or less
+- put timebomb gif if player has less than 2 cards
+- confusion about table
+- statistics
+- warn user before making a bluff if many cards on table
+- show cards on table image, maybe combine brown table with that
+- store stats
